@@ -1,0 +1,56 @@
+/* THEME TOGGLE BUTTON */
+
+body.dark {
+    background-color: #616161;
+    color: white;
+}
+
+body.light {
+    background-color: white;
+    color: black;
+}
+
+input[type="checkbox"] {
+    display: none;
+    justify-content: center;
+}
+
+.btn {
+    align-self: flex-end;
+    margin: 5px 10px;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90px;
+    height: 45px;
+    background-color: black;
+    transition: all 1s ease;
+    position: relative;
+    border-radius: 22.5px;
+    cursor: pointer;
+}
+
+.box .ball {
+    width: 45px;
+    height: 45px;
+    background-color: grey;
+    transition: all 1s ease;
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid black;
+}
+
+.box .scenary {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    transition: all 1s ease;
+    padding: 5px 10px 0px 10px;
+}
+
+.box .scenary svg {
+    width: 30px;
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Sudoku</title>
+    <link href="CSSstyles/styles.css" rel="stylesheet">
+    <link href="CSSstyles/social-media-panel.css" rel="stylesheet">
+    <link href="CSSstyles/theme-toggle-button.css" rel="stylesheet">
+    <link href="Font-Awesome/css/all.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to My Sudoku Puzzle Game!</h1>
+        <div id="setup-game">
+            <div id="difficulty">
+                <h3>Choose difficulty: </h3>
+                <label><input type="radio" id="difficulty-easy" name="diff" value="easy" checked>Easy</label>
+                <label><input type="radio" id="difficulty-medium" name="diff" value="medium">Medium</label>
+                <label><input type="radio" id="difficulty-hard" name="diff" value="hard">Hard</label>
+            </div>
+            <div id="time">
+                <h3>Choose time: </h3>
+                <input type="radio" id="time-3mins" name="time" value="three" checked>
+                <label>3 mins</label>
+                <input type="radio" id="time-5mins" name="time" value="five">
+                <label>5 mins</label>
+                <input type="radio" id="time-10mins" name="time" value="ten">
+                <label>10 mins</label>
+            </div>
+        </div>
+        <div class="btn">
+            <input type="checkbox" name="theme-btn" id="theme-btn">
+            <label for="theme-btn">
+			<span class="box">
+				<span class="ball"></span>
+				<span class="scenary">
+					<span class="moon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+					</span>
+					<span class="sun">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+					</span>
+				</span>
+			</span>
+		</label>
+        </div>
+        <button id="start-btn">New game!</button>
+    </header>
+    <div id=stats>
+        <p id="timer"></p>
+        <p id="lives"></p>
+    </div>
+    <div id="game">
+        <div id="board"></div>
+        <div id="number-container" class="hidden">
+            <p id="one">1</p>
+            <p id="two">2</p>
+            <p id="three">3</p>
+            <p id="four">4</p>
+            <p id="five">5</p>
+            <p id="six">6</p>
+            <p id="seven">7</p>
+            <p id="eight">8</p>
+            <p id="nine">9</p>
+        </div>
+    </div>
+    <button id="solve-btn" rel="tooltip" title="Solve the current Sudoku puzzle." data-placement="bottom">
+		Show solution
+	</button>
+    <button id="refresh-btn" rel="tooltip" title="Refresh the Sudoku board with the same difficulty." data-placement="bottom">
+		Refresh puzzle
+	</button>
+    <button id="pause-btn">Pause</button>
+    <button id="resume-btn">Resume</button>
+
+    <footer>
+        <p>This website is created by Hua-Ming Huang, December 2021</p>
+    </footer>
+
+    <div class="social-panel-container">
+        <div class="social-panel">
+            <p>Created with <i class="fa fa-heart" id="heart"></i> by
+                <a target="_blank" href="https://huaminghuangtw.com">Hua-Ming Huang</a></p>
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+            <h4>Reach me out on</h4>
+            <ul>
+                <li>
+                    <a href="mailto:huaming.huang.tw@gmail.com" target="_blank">
+                        <i class="fas fa-at"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/huaminghuangtw" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/hmhuang0501" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.strava.com/athletes/huaminghuang" target="_blank">
+                        <i class="fab fa-strava"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/huaming.huang.tw/" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/hmhuang__/" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </li>
+                <!-- <li>
+                    <a href="https://api.whatsapp.com/send?phone=491786042963&text=Hello!" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+    <button class="floating-btn">
+	Get in Touch
+	</button>
+
+    <!-- javascript (Placed at the bottom of body tag so that the DOM could load faster) -->
+    <script src="JSscripts/helperSudoku.js"></script>
+    <script src="JSscripts/utilitySudoku.js"></script>
+    <script src="JSscripts/solveSudoku.js"></script>
+    <script src="JSscripts/generateSudoku.js"></script>
+    <script src="JSscripts/app.js"></script>
+</body>
+
+</html>

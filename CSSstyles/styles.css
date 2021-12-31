@@ -1,0 +1,104 @@
+/* MAIN PAGE OF SUDOKU PUZZLE GAME */
+
+.hidden {
+    display: none;
+}
+
+header {
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 3px solid brown;
+}
+
+h1 {
+    font-size: 34pt;
+}
+
+#setup-game {
+    display: flex;
+    justify-content: center;
+}
+
+#setup-game>* {
+    font-size: 18px;
+    margin-bottom: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    display: flex;
+    align-items: center;
+}
+
+button {
+    justify-self: center;
+}
+
+p#timer,
+p#lives {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#game {
+    display: flex;
+    justify-content: center;
+}
+
+#number-container>p {
+    border: 1px solid black;
+    border-radius: 20%;
+    width: 60px;
+    height: 60px;
+    font-size: 40pt;
+    margin-left: 50px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+#board {
+    padding-top: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    width: 600px;
+    height: 600px;
+}
+
+.tile {
+    border: 1px solid black;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    margin: 0px;
+    vertical-align: middle;
+    font-size: 40pt;
+}
+
+p.selected {
+    background-color: lightblue;
+}
+
+p.incorrect {
+    color: red;
+}
+
+.rightBorder {
+    border-right: 4px solid black;
+}
+
+.bottomBorder {
+    border-bottom: 4px solid black;
+}
+
+.green-text {
+    color: ForestGreen;
+}
+
+footer {
+    background-color: #235fdf;
+    color: white;
+    text-align: center;
+}
