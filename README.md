@@ -3,16 +3,20 @@ Web Sudoku Puzzle Game
 
 > Welcome to my Sudoku puzzle game! - An interactive web Sudoku puzzle game developed in HTML, CSS, and JavaScript.
 
-#### Video Demo:  🔗 <URL HERE>
+### Live Demo: 🔗 https://hmhuang0501.github.io/Web-Sudoku-Puzzle-Game/
 
 ---
 
-#### Motivation
+### Video Demo: 🔗 <URL HERE>
+
+---
+
+### Motivation
 Since I first studied parallel programming, I developed a [personal side project](https://github.com/hmhuang0501/Parallel-Sudoku-Solver) that aims to solve large Sudoku puzzles as efficiently as possible by means of various parallelization techniques and solving algorithms. The main focus/goal of this project, however, is not only to make an *interactive* Sudoku puzzle game that the user can play around with, but also to hone my web development skills. To this end, I've added graphical tools and features in the webpage which I hope you will enjoy and have fun! 😊
 
 ---
 
-#### Description
+### Description
 Sudoku is one of the most popular puzzle games of all time.
 The objective of Sudoku is to fill a 9-by-9 grid with digits from 1 to 9 such that each column, row, and box (or called "subgrid", "region", "block") contain every number in the set {1, ... , 9} exactly once.
 
@@ -20,12 +24,12 @@ This web application features **generating** and **solving** 9-by-9 Sudoku puzzl
 
 ---
 
-#### Test cases
+### Test cases
 A collection of test grids of various difficulty levels are present in the [`Test_Cases`](./Test_Cases) directory. These text files are used for the **initial** Sudoku boards of respective difficulty levels. When the user clicks the "Refresh puzzle" button, **random** Sudoku boards are subsequently generated via the approach proposed by Rob McGuir [1].
 
 ---
 
-#### References
+### References
 
 [1] [A Sudoku puzzle generator and solver JavaScript library - sudoku.js](https://github.com/robatron/sudoku.js)
 
