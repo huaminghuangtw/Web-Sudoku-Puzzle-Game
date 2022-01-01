@@ -90,6 +90,10 @@ function startGame() {
     startTimer(timeRemaining);
     // Show number containers
     id("number-container").classList.remove("hidden");
+    // Enable "Pause" button
+    id("pause-btn").disabled = false;
+    // Disable "Refresh" button
+    id("resume-btn").disabled = true;
 }
 
 function endGame() {
@@ -235,6 +239,8 @@ var show_solution = function() {
     print_board(solution);
     // Pause timer
     pauseTimer();
+    // Disable "Refresh" button
+    id("resume-btn").disabled = true;
 }
 
 function refresh_puzzle() {
@@ -261,6 +267,10 @@ function refresh_puzzle() {
     startTimer(timeRemaining);
     // Show number containers
     id("number-container").classList.remove("hidden");
+    // Enable "Pause" button
+    id("pause-btn").disabled = false;
+    // Disable "Refresh" button
+    id("resume-btn").disabled = true;
 }
 
 // Functions for timer

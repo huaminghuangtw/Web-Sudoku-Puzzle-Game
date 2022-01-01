@@ -3,11 +3,13 @@ Web Sudoku Puzzle Game
 
 > Welcome to my Sudoku puzzle game! - An interactive web Sudoku puzzle game developed in HTML, CSS, and JavaScript.
 
-### Live Demo: 🔗 https://hmhuang0501.github.io/Web-Sudoku-Puzzle-Game/
+### Live Demo
+🔗 https://hmhuang0501.github.io/Web-Sudoku-Puzzle-Game/
 
 ---
 
-### Video Demo: 🔗 <URL HERE>
+### Video Demo
+🔗 https://www.youtube.com/watch?v=aTz_BDq05rw
 
 ---
 
