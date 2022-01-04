@@ -1,6 +1,16 @@
 Web Sudoku Puzzle Game
 ======================
 
+<p align="left">
+<a href="https://github.com/huaminghuangtw/Web-Sudoku-Puzzle-Game"><img src="https://badges.frapsoft.com/os/v3/open-source.svg?v=103" alt="Open Source Love"></a><br/>
+<a href="https://github.com/huaminghuangtw/Web-Sudoku-Puzzle-Game/releases"><img src="https://img.shields.io/github/v/release/huaminghuangtw/Web-Sudoku-Puzzle-Game.svg?display_name=tag&style=plastic&color=lightgrey"></a>
+<a href="https://github.com/huaminghuangtw/Web-Sudoku-Puzzle-Game/tags"><img src="https://img.shields.io/github/v/tag/huaminghuangtw/Web-Sudoku-Puzzle-Game.svg?style=plastic&color=lightgrey"></a><br/> 
+<a href="https://github.com/huaminghuangtw/Web-Sudoku-Puzzle-Game/stargazers"><img src="https://img.shields.io/github/stars/huaminghuangtw/Web-Sudoku-Puzzle-Game.svg?style=social"></a>
+<a href="https://github.com/huaminghuangtw/Web-Sudoku-Puzzle-Game/fork"><img src="https://img.shields.io/github/forks/huaminghuangtw/Web-Sudoku-Puzzle-Game.svg?style=social"></a>
+<a href="https://github.com/huaminghuangtw/Web-Sudoku-Puzzle-Game/issues"><img src="https://img.shields.io/github/issues/huaminghuangtw/Web-Sudoku-Puzzle-Game.svg?style=social&logo=github"></a>
+<a href="https://github.com/huaminghuangtw/Web-Sudoku-Puzzle-Game/pulls"><img src="https://img.shields.io/github/issues-pr/huaminghuangtw/Web-Sudoku-Puzzle-Game.svg?style=social&logo=github"></a>
+</p>
+
 > Welcome to my Sudoku puzzle game! - An interactive web Sudoku puzzle game developed in HTML, CSS, and JavaScript.
 
 ### Live Demo
@@ -55,3 +65,9 @@ Thanks!:heart: and Cheers!:beers:
 
 ### Contact
 If you have any question or suggestion, feel free to contact me at huaming.huang.tw@gmail.com. Contributions are also welcomed. Please open a [pull-request](https://github.com/hmhuang0501/Web-Sudoku-Puzzle-Game/compare) or an [issue](https://github.com/hmhuang0501/Web-Sudoku-Puzzle-Game/issues/new) in this repository.
+
+---
+
+### License
+
+This project is licensed under the terms of [![MIT](https://img.shields.io/github/license/huaminghuangtw/Web-Sudoku-Puzzle-Game.svg?style=flat-square&label=License&colorB=black)](./LICENSE).
