@@ -24,7 +24,7 @@ Web Sudoku Puzzle Game
 ---
 
 ### Motivation
-Since I first studied parallel programming, I developed a [personal side project](https://github.com/huaminghuangtw/Parallel-Sudoku-Solver) that aims to solve large Sudoku puzzles as efficiently as possible by means of various parallelization techniques and solving algorithms. The main focus/goal of this project, however, is not only to make an *interactive* Sudoku puzzle game that the user can play around with, but also to hone my web development skills. To this end, I've added graphical tools and features in the webpage which I hope you will enjoy and have fun! 😊
+Since I first studied parallel programming, I developed a [personal side project](https://github.com/huaminghuangtw/Parallel-Sudoku-Solver) that aims to solve *large* Sudoku puzzles as efficiently as possible by means of various parallelization techniques and solving algorithms. The main focus/goal of this project, however, is not only to make an *interactive* Sudoku puzzle game that the user can play around with, but also to hone my web development skills. To this end, I've added graphical tools and features in the webpage which I hope you will enjoy and have fun! 😊
 
 ---
 
@@ -32,7 +32,11 @@ Since I first studied parallel programming, I developed a [personal side project
 Sudoku is one of the most popular puzzle games of all time.
 The objective of Sudoku is to fill a 9-by-9 grid with digits from 1 to 9 such that each column, row, and box (or called "subgrid", "region", "block") contain every number in the set {1, ... , 9} exactly once.
 
-This web application features **generating** and **solving** 9-by-9 Sudoku puzzles of different difficulty levels (i.e., easy, medium, hard). For the Sudoku generating algorithm, please refer to [1]. The becktracking technique [2] is implemented as the solving algorithm here.
+This web application features **generating** and **solving** standard 9-by-9 Sudoku puzzles of different difficulty levels (i.e., easy, medium, and hard). For the Sudoku generating algorithm, please refer to [1]. The backtracking technique [2] is implemented as the solving algorithm here.
+
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/43208378/148444472-bb6d43ae-c3cd-4b8e-b530-0f7cb2db1067.png"/ width="350">
+</p>
 
 ---
 
@@ -53,10 +57,10 @@ A collection of test grids of various difficulty levels are present in the [`Tes
 Whether you use this project, have learned something from it, or just like it, please consider supporting it by buying me a coffee or making one-time donations via PayPal, so I can dedicate more time on open-source projects like this. 💪🙃
 
 <a href="https://www.buymeacoffee.com/huaming.huang" target="_blank">
-    <img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="30" width="127" />
+    <img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="30" width="127"/>
 </a>
 <a href="https://www.paypal.me/huaminghuang" target="_blank">
-    <img src="https://ionicabizau.github.io/badges/paypal.svg" alt="paypal.me/huaminghuang" height="30" width="127" />
+    <img src="https://ionicabizau.github.io/badges/paypal.svg" alt="paypal.me/huaminghuang" height="30" width="127"/>
 </a>
 
 Thanks!:heart: and Cheers!:beers:
