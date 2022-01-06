@@ -35,7 +35,7 @@ The objective of Sudoku is to fill a 9-by-9 grid with digits from 1 to 9 such th
 This web application features **generating** and **solving** standard 9-by-9 Sudoku puzzles of different difficulty levels (i.e., easy, medium, and hard). For the Sudoku generating algorithm, please refer to [1]. The backtracking technique [2] is implemented as the solving algorithm here.
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/43208378/148444472-bb6d43ae-c3cd-4b8e-b530-0f7cb2db1067.png"/ width="350">
+    <img src="https://user-images.githubusercontent.com/43208378/148444472-bb6d43ae-c3cd-4b8e-b530-0f7cb2db1067.png" width=350>
 </p>
 
 ---
