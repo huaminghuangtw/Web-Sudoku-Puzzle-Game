@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sudoku</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="CSSstyles/styles.css" rel="stylesheet">
     <link href="CSSstyles/social-media-panel.css" rel="stylesheet">
     <link href="CSSstyles/theme-toggle-button.css" rel="stylesheet">
+    <link href="CSSstyles/styles.css" rel="stylesheet">
 </head>
 
 <body>
@@ -59,7 +59,12 @@
     </header>
     <div id=stats>
         <p id="timer"></p>
+        <div id="progress">
+            <div id="progress-bar"></div>
+        </div>
         <p id="lives"></p>
+        <div class="snackbar" id="snackbar-win">You won!</div>
+        <div class="snackbar" id="snackbar-lose">You lost!</div>
     </div>
     <div id="game">
         <div id="board"></div>

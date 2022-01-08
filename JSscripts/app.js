@@ -4,7 +4,8 @@ var solution;
 var board_size
 var box_size;
 var timer = null;
-var timeRemaining;
+var totalSeconds;
+var remainingSeconds;
 var lives;
 var selectedNum;
 var selectedTile;
@@ -87,7 +88,7 @@ function startGame() {
     id("lives").textContent = "Lives remaining: " + lives;
     // Setup timer
     initializeTimer();
-    startTimer(timeRemaining);
+    startTimer(remainingSeconds);
     // Show number containers
     id("number-container").classList.remove("hidden");
     // Enable "Pause" button
@@ -103,10 +104,16 @@ function endGame() {
     var m = t[0];
     var s = t[1];
     if (lives == 0 || (parseInt(m, 10) == 0 && parseInt(s, 10) == 0)) {
-        id("lives").textContent = "You lost!";
+        var x = id("snackbar-lose");
     } else {
-        id("lives").textContent = "You won!";
+        var x = id("snackbar-win");
     }
+    x.classList.add("show");
+    setTimeout(function() {
+        x.classList.remove("show");
+    }, 3000);
+    id("pause-btn").disabled = true;
+    id("resume-btn").disabled = true;
 }
 
 function readInput(file) {
@@ -184,10 +191,10 @@ function updateMove() {
             selectedTile.classList.add("incorrect");
             setTimeout(function() {
                 lives--;
+                id("lives").textContent = "Lives remaining: " + lives;
                 if (lives == 0) {
                     endGame();
                 } else {
-                    id("lives").textContent = "Lives remaining: " + lives;
                     disableSelect = false;
                 }
                 selectedTile.classList.remove("incorrect");
@@ -264,7 +271,7 @@ function refresh_puzzle() {
     id("lives").textContent = "Lives remaining: " + lives;
     // Setup timer
     initializeTimer();
-    startTimer(timeRemaining);
+    startTimer(remainingSeconds);
     // Show number containers
     id("number-container").classList.remove("hidden");
     // Enable "Pause" button
@@ -276,20 +283,22 @@ function refresh_puzzle() {
 // Functions for timer
 function initializeTimer() {
     // Set how long the timer should be
-    timeRemaining = new Date();
+    remainingSeconds = new Date();
     if (id("time-3mins").checked) {
-        timeRemaining.setMinutes(3, 0);
+        remainingSeconds.setMinutes(3, 0);
     } else if (id("time-5mins").checked) {
-        timeRemaining.setMinutes(5, 0);
+        remainingSeconds.setMinutes(5, 0);
     } else if (id("time-10mins").checked) {
-        timeRemaining.setMinutes(10, 0);
+        remainingSeconds.setMinutes(10, 0);
     }
+    totalSeconds = 60 * remainingSeconds.getMinutes() + remainingSeconds.getSeconds();
 }
 
-function startTimer(timeRemaining) {
-    id("timer").textContent = timeConversion(timeRemaining);
+function startTimer(remainingSeconds) {
+    id("timer").textContent = timeConversion(remainingSeconds);
+    id("progress-bar").style.width = ((60 * remainingSeconds.getMinutes() + remainingSeconds.getSeconds()) * 100 / totalSeconds) + "%";
     // Update timer every second
-    timeRemaining.setSeconds(timeRemaining.getSeconds() - 1);
+    remainingSeconds.setSeconds(remainingSeconds.getSeconds() - 1);
     var t = id("timer").textContent.split(":");
     var m = t[0];
     var s = t[1];
@@ -298,7 +307,7 @@ function startTimer(timeRemaining) {
         return;
     }
     timer = setTimeout(function() {
-        startTimer(timeRemaining);
+        startTimer(remainingSeconds);
     }, 1000);
 }
 
@@ -310,7 +319,7 @@ function pauseTimer() {
 
 function resumeTimer() {
     timer = setTimeout(function() {
-        startTimer(timeRemaining);
+        startTimer(remainingSeconds);
     }, 1000);
     id("pause-btn").disabled = false;
     id("resume-btn").disabled = true;
