@@ -86,9 +86,11 @@ function startGame() {
     generateBoard(inputBoard);
     // Display number of lives remaining
     id("lives").textContent = "Lives remaining: " + lives;
-    // Setup timer
-    initializeTimer();
+    // Setup timer and progress bar
+    id("progress-bar-inner").classList.remove("run-animation");
+    initializeTimerAndProgressBar();
     startTimer(remainingSeconds);
+    startProgressBar();
     // Show number containers
     id("number-container").classList.remove("hidden");
     // Enable "Pause" button
@@ -100,6 +102,7 @@ function startGame() {
 function endGame() {
     disableSelect = true;
     clearTimeout(timer);
+    pauseProgressBar();
     var t = id("timer").textContent.split(":");
     var m = t[0];
     var s = t[1];
@@ -269,9 +272,10 @@ function refresh_puzzle() {
     solution = board_grid_to_string(solveSudoku(board_string_to_grid(inputBoard)));
     // Display number of lives remaining
     id("lives").textContent = "Lives remaining: " + lives;
-    // Setup timer
-    initializeTimer();
+    // Setup timer and progress bar
+    initializeTimerAndProgressBar();
     startTimer(remainingSeconds);
+    startProgressBar();
     // Show number containers
     id("number-container").classList.remove("hidden");
     // Enable "Pause" button
@@ -281,7 +285,7 @@ function refresh_puzzle() {
 }
 
 // Functions for timer
-function initializeTimer() {
+function initializeTimerAndProgressBar() {
     // Set how long the timer should be
     remainingSeconds = new Date();
     if (id("time-3mins").checked) {
@@ -292,11 +296,14 @@ function initializeTimer() {
         remainingSeconds.setMinutes(10, 0);
     }
     totalSeconds = 60 * remainingSeconds.getMinutes() + remainingSeconds.getSeconds();
+    resetProgressBar();
+    id("progress-bar").style.visibility = "visible";
+    id("progress-bar-inner").style.animationDuration = totalSeconds + "s";
+    id("progress-bar-inner").style.animationPlayState = 'paused';
 }
 
 function startTimer(remainingSeconds) {
     id("timer").textContent = timeConversion(remainingSeconds);
-    id("progress-bar").style.width = ((60 * remainingSeconds.getMinutes() + remainingSeconds.getSeconds()) * 100 / totalSeconds) + "%";
     // Update timer every second
     remainingSeconds.setSeconds(remainingSeconds.getSeconds() - 1);
     var t = id("timer").textContent.split(":");
@@ -311,18 +318,39 @@ function startTimer(remainingSeconds) {
     }, 1000);
 }
 
+function startProgressBar() {
+    id("progress-bar-inner").style.animationPlayState = 'running';
+}
+
+function resetProgressBar() {
+    var element = id('progress-bar-inner');
+    element.style.animation = 'none';
+    element.offsetHeight; /* trigger a DOM reflow */
+    element.style.animation = null;
+}
+
 function pauseTimer() {
     clearTimeout(timer);
+    pauseProgressBar();
     id("pause-btn").disabled = true;
     id("resume-btn").disabled = false;
+}
+
+function pauseProgressBar() {
+    id("progress-bar-inner").style.animationPlayState = 'paused';
 }
 
 function resumeTimer() {
     timer = setTimeout(function() {
         startTimer(remainingSeconds);
     }, 1000);
+    resumeProgressBar();
     id("pause-btn").disabled = false;
     id("resume-btn").disabled = true;
+}
+
+function resumeProgressBar() {
+    id("progress-bar-inner").style.animationPlayState = 'running';
 }
 
 function timeConversion(time) {

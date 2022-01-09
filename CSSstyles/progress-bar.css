@@ -1,0 +1,32 @@
+/* PROGRESS BAR */
+
+#progress-bar {
+    visibility: hidden;
+    width: 80%;
+    margin: 25px auto;
+    border: solid 1px #000;
+    border-radius: 10px;
+}
+
+#progress-bar-inner {
+    height: 15px;
+    border-radius: 10px;
+    animation: progressbar-countdown;
+    animation-duration: 0s;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-fill-mode: none;
+    animation-play-state: paused;
+    animation-timing-function: linear;
+}
+
+@keyframes progressbar-countdown {
+    0% {
+        width: 100%;
+        background: #ffc300;
+    }
+    100% {
+        width: 0%;
+        background: red;
+    }
+}
