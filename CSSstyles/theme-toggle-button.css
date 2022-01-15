@@ -1,4 +1,4 @@
-/* THEME TOGGLE BUTTON */
+/* THEME TOGGLE BUTTON (BASED ON: https: //codepen.io/joyshaheb/pen/gOwOGQE) */
 
 body.dark {
     background-color: #616161;
@@ -12,7 +12,6 @@ body.light {
 
 input[type="checkbox"] {
     display: none;
-    justify-content: center;
 }
 
 .btn {
@@ -24,23 +23,29 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 90px;
-    height: 45px;
+    /* BOX-WIDTH */
+    width: 60px;
+    /* BOX-WIDTH/2 */
+    height: 30px;
     background-color: black;
     transition: all 1s ease;
     position: relative;
-    border-radius: 22.5px;
+    /* BOX-WIDTH/4 */
+    border-radius: 15px;
     cursor: pointer;
 }
 
 .box .ball {
-    width: 45px;
-    height: 45px;
+    /* BOX-WIDTH/2 */
+    width: 30px;
+    /* BOX-WIDTH/2 */
+    height: 30px;
     background-color: grey;
     transition: all 1s ease;
     position: absolute;
     border-radius: 50%;
     border: 3px solid black;
+    box-sizing: border-box;
 }
 
 .box .scenary {
@@ -52,5 +57,6 @@ input[type="checkbox"] {
 }
 
 .box .scenary svg {
-    width: 30px;
+    /* BOX-WIDTH/3 */
+    width: 20px;
 }

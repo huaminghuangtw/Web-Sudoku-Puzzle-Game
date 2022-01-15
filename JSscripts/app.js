@@ -1,11 +1,8 @@
 // Global variables
 var inputBoard;
 var solution;
-var board_size
+var board_size;
 var box_size;
-var timer = null;
-var totalSeconds;
-var remainingSeconds;
 var lives;
 var selectedNum;
 var selectedTile;
@@ -57,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add event listener to "Pause" button
     id("pause-btn").addEventListener("click", pauseTimer);
     // Add event listener to "Resume" button
-    id("resume-btn").disabled = true;
     id("resume-btn").addEventListener("click", resumeTimer);
     // Add event listener to components of social media panel
     const floating_btn = qs(".floating-btn");
@@ -71,10 +67,73 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function startGame() {
+function resetGame() {
     // Initialize variables
     lives = 3;
     disableSelect = false;
+    // Display number of lives remaining
+    id("lives").textContent = "Lives remaining: " + lives;
+    // Set how long the timer should be
+    if (id("time-3mins").checked) {
+        TIME_LIMIT = 60 * 3;
+    } else if (id("time-5mins").checked) {
+        TIME_LIMIT = 60 * 5;
+    } else if (id("time-10mins").checked) {
+        TIME_LIMIT = 60 * 10;
+    }
+    last = 0; // timestamp of the last updateTimer() call
+    timeElapsed = -1;
+    timeLeft = TIME_LIMIT;
+    if (useProgressBar) {
+        id("timer").textContent = formatTime(timeLeft);
+        id("progress-bar-container").style.visibility = "visible";
+        id("progress-bar-container").innerHTML =
+            `<div id="progress-bar"></div>`;
+        // Start timer and progress bar
+        startProgressBar();
+        startTimer();
+        // Remove unnecessary elements
+        if (id("animated-timer-container")) { id("animated-timer-container").remove(); }
+    } else {
+        id("animated-timer-container").style.visibility = "visible";
+        id("animated-timer-container").classList.add("placement");
+        id("animated-timer-container").innerHTML =
+            `<div class="base-timer">
+				<svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+					<g class="base-timer__circle">
+						<circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+						<path
+							id="base-timer-path-remaining"
+							stroke-dasharray="283"
+							class="base-timer__path-remaining ${remainingPathColor}"
+							d="
+								M 50, 50
+								m -45, 0
+								a 45,45 0 1,0 90,0
+								a 45,45 0 1,0 -90,0
+							"
+						></path>
+					</g>
+				</svg>
+				<span id="base-timer-label" class="base-timer__label">${formatTime(timeLeft)}</span>
+			</div>`;
+        // Start timer
+        startTimer();
+        // Remove unnecessary elements
+        if (id("timer")) { id("timer").remove(); }
+        if (id("progress-bar")) { id("progress-bar").remove(); }
+    }
+    // Show number containers
+    id("number-container").classList.remove("hidden");
+    // Enable "Show solution", "Refresh puzzle", and "Pause" button
+    id("solve-btn").disabled = false;
+    id("refresh-btn").disabled = false;
+    id("pause-btn").disabled = false;
+    // Disable "Resume" button
+    id("resume-btn").disabled = true;
+}
+
+function startGame() {
     // Choose board difficulty and initialize the Sudoku board accordingly
     if (id("difficulty-easy").checked) {
         inputBoard = readInput("Test_Cases/9x9_easy.txt");
@@ -84,26 +143,19 @@ function startGame() {
         inputBoard = readInput("Test_Cases/9x9_hard.txt");
     }
     generateBoard(inputBoard);
-    // Display number of lives remaining
-    id("lives").textContent = "Lives remaining: " + lives;
-    // Setup timer and progress bar
-    id("progress-bar-inner").classList.remove("run-animation");
-    initializeTimerAndProgressBar();
-    startTimer(remainingSeconds);
-    startProgressBar();
-    // Show number containers
-    id("number-container").classList.remove("hidden");
-    // Enable "Pause" button
-    id("pause-btn").disabled = false;
-    // Disable "Refresh" button
-    id("resume-btn").disabled = true;
+    // Compute solution for the gieven input Sudoku board
+    solution = board_grid_to_string(solveSudoku(board_string_to_grid(inputBoard)));
+    // Reset setting of the game
+    resetGame();
 }
 
 function endGame() {
     disableSelect = true;
-    clearTimeout(timer);
-    pauseProgressBar();
-    var t = id("timer").textContent.split(":");
+    if (useProgressBar) {
+        var t = id("timer").textContent.split(":");
+    } else {
+        var t = id("base-timer-label").innerHTML.split(":");
+    }
     var m = t[0];
     var s = t[1];
     if (lives == 0 || (parseInt(m, 10) == 0 && parseInt(s, 10) == 0)) {
@@ -115,6 +167,8 @@ function endGame() {
     setTimeout(function() {
         x.classList.remove("show");
     }, 3000);
+    id("solve-btn").disabled = true;
+    id("refresh-btn").disabled = true;
     id("pause-btn").disabled = true;
     id("resume-btn").disabled = true;
 }
@@ -138,7 +192,6 @@ function readInput(file) {
         }
     }
     rawFile.send(null);
-    solution = board_grid_to_string(solveSudoku(board_string_to_grid(inputBoard)));
     return inputBoard;
 }
 
@@ -228,7 +281,8 @@ function clearPrevious() {
     for (let i = 0; i < tiles.length; i++) {
         tiles[i].remove();
     }
-    if (timer) clearTimeout(timer);
+    if (timer) { clearInterval(timer); }
+    if (progress_bar) { clearInterval(progress_bar); }
     for (let i = 0; i < id("number-container").children.length; i++) {
         id("number-container").children[i].classList.remove("selected");
     }
@@ -249,14 +303,12 @@ var show_solution = function() {
     print_board(solution);
     // Pause timer
     pauseTimer();
-    // Disable "Refresh" button
+    // Disable "Show solution" and "Resume" button
+    id("solve-btn").disabled = true;
     id("resume-btn").disabled = true;
 }
 
 function refresh_puzzle() {
-    // Initialize variables
-    lives = 3;
-    disableSelect = false;
     // Choose board difficulty and initialize the Sudoku board accordingly
     if (id("difficulty-easy").checked) {
         inputBoard = generateSudoku("easy");
@@ -266,101 +318,12 @@ function refresh_puzzle() {
         inputBoard = generateSudoku("hard");
     }
     generateBoard(inputBoard);
-    // Initialize other variables
-    board_size = Math.sqrt(inputBoard.length);
-    box_size = Math.sqrt(board_size);
+    // Compute solution for the gieven input Sudoku board
     solution = board_grid_to_string(solveSudoku(board_string_to_grid(inputBoard)));
-    // Display number of lives remaining
-    id("lives").textContent = "Lives remaining: " + lives;
-    // Setup timer and progress bar
-    initializeTimerAndProgressBar();
-    startTimer(remainingSeconds);
-    startProgressBar();
-    // Show number containers
-    id("number-container").classList.remove("hidden");
-    // Enable "Pause" button
-    id("pause-btn").disabled = false;
-    // Disable "Refresh" button
-    id("resume-btn").disabled = true;
+    // Reset setting of the game
+    resetGame();
 }
 
-// Functions for timer
-function initializeTimerAndProgressBar() {
-    // Set how long the timer should be
-    remainingSeconds = new Date();
-    if (id("time-3mins").checked) {
-        remainingSeconds.setMinutes(3, 0);
-    } else if (id("time-5mins").checked) {
-        remainingSeconds.setMinutes(5, 0);
-    } else if (id("time-10mins").checked) {
-        remainingSeconds.setMinutes(10, 0);
-    }
-    totalSeconds = 60 * remainingSeconds.getMinutes() + remainingSeconds.getSeconds();
-    resetProgressBar();
-    id("progress-bar").style.visibility = "visible";
-    id("progress-bar-inner").style.animationDuration = totalSeconds + "s";
-    id("progress-bar-inner").style.animationPlayState = 'paused';
-}
-
-function startTimer(remainingSeconds) {
-    id("timer").textContent = timeConversion(remainingSeconds);
-    // Update timer every second
-    remainingSeconds.setSeconds(remainingSeconds.getSeconds() - 1);
-    var t = id("timer").textContent.split(":");
-    var m = t[0];
-    var s = t[1];
-    if (parseInt(m, 10) == 0 && parseInt(s, 10) == 0) {
-        endGame();
-        return;
-    }
-    timer = setTimeout(function() {
-        startTimer(remainingSeconds);
-    }, 1000);
-}
-
-function startProgressBar() {
-    id("progress-bar-inner").style.animationPlayState = 'running';
-}
-
-function resetProgressBar() {
-    var element = id('progress-bar-inner');
-    element.style.animation = 'none';
-    element.offsetHeight; /* trigger a DOM reflow */
-    element.style.animation = null;
-}
-
-function pauseTimer() {
-    clearTimeout(timer);
-    pauseProgressBar();
-    id("pause-btn").disabled = true;
-    id("resume-btn").disabled = false;
-}
-
-function pauseProgressBar() {
-    id("progress-bar-inner").style.animationPlayState = 'paused';
-}
-
-function resumeTimer() {
-    timer = setTimeout(function() {
-        startTimer(remainingSeconds);
-    }, 1000);
-    resumeProgressBar();
-    id("pause-btn").disabled = false;
-    id("resume-btn").disabled = true;
-}
-
-function resumeProgressBar() {
-    id("progress-bar-inner").style.animationPlayState = 'running';
-}
-
-function timeConversion(time) {
-    // Convert a string of seconds into a string of MM:SS format
-    var m = time.getMinutes();
-    var s = time.getSeconds();
-    m = (m < 10) ? ("0" + m) : m;
-    s = (s < 10) ? ("0" + s) : s;
-    return m + ":" + s;
-}
 
 // Helper functions
 function id(id) {
@@ -373,4 +336,9 @@ function qs(selectors) {
 
 function qsa(selectors) {
     return document.querySelectorAll(selectors);
+}
+
+function setIntervalImmediately(func, interval) {
+    func();
+    return setInterval(func, interval);
 }

@@ -4,8 +4,16 @@
     display: none;
 }
 
-header {
+.center-screen {
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
     text-align: center;
+    margin: 0 auto;
+}
+
+header {
     padding-bottom: 10px;
     border-bottom: 3px solid brown;
 }
@@ -15,13 +23,11 @@ h1 {
 }
 
 .github {
-    text-align: center;
     margin-bottom: 12px;
 }
 
 #setup-game {
     display: flex;
-    justify-content: center;
 }
 
 #setup-game>* {
@@ -30,23 +36,16 @@ h1 {
     padding-left: 50px;
     padding-right: 50px;
     display: flex;
-    align-items: center;
 }
 
-button {
-    justify-self: center;
-}
-
-p#timer,
-p#lives {
+#timer,
+#lives {
     font-size: 25px;
     font-weight: bold;
-    text-align: center;
 }
 
 #game {
     display: flex;
-    justify-content: center;
 }
 
 #number-container>p {
@@ -58,7 +57,6 @@ p#lives {
     margin-left: 50px;
     margin-top: 5px;
     margin-bottom: 5px;
-    text-align: center;
 }
 
 #board {
@@ -75,8 +73,6 @@ p#lives {
 .tile {
     border: 1px solid black;
     width: 60px;
-    height: 60px;
-    text-align: center;
     margin: 0px;
     vertical-align: middle;
     font-size: 40pt;

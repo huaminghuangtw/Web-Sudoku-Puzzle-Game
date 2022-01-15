@@ -2,18 +2,19 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>Sudoku</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="CSSstyles/styles.css" rel="stylesheet">
     <link href="CSSstyles/social-media-panel.css" rel="stylesheet">
-    <link href="CSSstyles/theme-toggle-button.css" rel="stylesheet">
+    <link href="CSSstyles/animated-countdown-timer.css" rel="stylesheet">
     <link href="CSSstyles/progress-bar.css" rel="stylesheet">
-    <link href="CSSstyles/toast.css" rel="stylesheet">
+    <link href="CSSstyles/snackbar.css" rel="stylesheet">
+    <link href="CSSstyles/theme-toggle-button.css" rel="stylesheet">
+    <link href="CSSstyles/styles.css" rel="stylesheet">
 </head>
 
 <body>
-    <header>
+    <header class="center-screen">
         <h1>Welcome to My Sudoku Puzzle Game!</h1>
         <div class="github">
             <!-- GitHub Sponsors -->
@@ -24,7 +25,7 @@
             <a class="github-button" href="https://github.com/huaminghuangtw/Web-Sudoku-Puzzle-Game" data-color-scheme="no-preference: dark_high_contrast; light: dark_high_contrast; dark: dark_high_contrast;" data-icon="octicon-star" data-size="large" data-show-count="true"
                 aria-label="Star huaminghuangtw/Web-Sudoku-Puzzle-Game on GitHub">Star</a>
         </div>
-        <div id="setup-game">
+        <div id="setup-game" class="center-screen">
             <div id="difficulty">
                 <h3>Choose difficulty: </h3>
                 <label><input type="radio" id="difficulty-easy" name="diff" value="easy" checked>Easy</label>
@@ -41,9 +42,12 @@
                 <label>10 mins</label>
             </div>
         </div>
-        <div class="btn">
-            <input type="checkbox" name="theme-btn" id="theme-btn">
-            <label for="theme-btn">
+        <button id="start-btn">New game!</button>
+    </header>
+
+    <div class="btn">
+        <input type="checkbox" name="theme-btn" id="theme-btn">
+        <label for="theme-btn">
 			<span class="box">
 				<span class="ball"></span>
 				<span class="scenary">
@@ -56,19 +60,18 @@
 				</span>
 			</span>
 		</label>
-        </div>
-        <button id="start-btn">New game!</button>
-    </header>
-    <div id=stats>
+    </div>
+
+    <div id="stats" class="center-screen">
         <p id="timer"></p>
-        <div id="progress-bar">
-            <div id="progress-bar-inner"></div>
-        </div>
+        <div id="progress-bar-container"></div>
+        <div id="animated-timer-container"></div>
         <p id="lives"></p>
         <div class="snackbar" id="snackbar-win">You won!</div>
         <div class="snackbar" id="snackbar-lose">You lost!</div>
     </div>
-    <div id="game">
+
+    <div id="game" class="center-screen">
         <div id="board"></div>
         <div id="number-container" class="hidden">
             <p id="one">1</p>
@@ -82,14 +85,19 @@
             <p id="nine">9</p>
         </div>
     </div>
-    <button id="solve-btn" rel="tooltip" title="Solve the current Sudoku puzzle." data-placement="bottom">
-		Show solution
-	</button>
-    <button id="refresh-btn" rel="tooltip" title="Refresh the Sudoku board with the same difficulty." data-placement="bottom">
-		Refresh puzzle
-	</button>
-    <button id="pause-btn">Pause</button>
-    <button id="resume-btn">Resume</button>
+
+    <p>
+        <div class="center-screen">
+            <button id="solve-btn" disabled rel="tooltip" title="Solve the current Sudoku puzzle." data-placement="bottom">
+			Show solution
+		</button>
+            <button id="refresh-btn" disabled rel="tooltip" title="Refresh the Sudoku board with the same difficulty." data-placement="bottom">
+			Refresh puzzle
+		</button>
+            <button id="pause-btn" disabled>Pause</button>
+            <button id="resume-btn" disabled>Resume</button>
+        </div>
+    </p>
 
     <footer>
         <p>This website is created by Hua-Ming Huang, December 2021</p>
@@ -140,17 +148,20 @@
             </ul>
         </div>
     </div>
+
     <button class="floating-btn">
-	Get in Touch
+		Get in Touch
 	</button>
 
     <!-- JavaScript (Placed at the bottom of body tag so that the DOM could load faster) -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="JSscripts/helperSudoku.js"></script>
     <script src="JSscripts/utilitySudoku.js"></script>
     <script src="JSscripts/solveSudoku.js"></script>
     <script src="JSscripts/generateSudoku.js"></script>
+    <script src="JSscripts/timer.js"></script>
+    <script src="JSscripts/progress_bar.js"></script>
     <script src="JSscripts/app.js"></script>
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 
 </html>
