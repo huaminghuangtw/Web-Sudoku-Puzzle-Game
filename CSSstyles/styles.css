@@ -26,18 +26,6 @@ h1 {
     margin-bottom: 12px;
 }
 
-#setup-game {
-    display: flex;
-}
-
-#setup-game>* {
-    font-size: 18px;
-    margin-bottom: 10px;
-    padding-left: 50px;
-    padding-right: 50px;
-    display: flex;
-}
-
 #timer,
 #lives {
     font-size: 25px;
@@ -99,7 +87,7 @@ p.incorrect {
 }
 
 footer {
-    background-color: #235fdf;
+    background-color: #5D3FD3;
     color: white;
     text-align: center;
 }

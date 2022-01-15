@@ -5,6 +5,7 @@
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>Sudoku</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="CSSStyles/bootstrap.css" rel="stylesheet">
     <link href="CSSstyles/social-media-panel.css" rel="stylesheet">
     <link href="CSSstyles/animated-countdown-timer.css" rel="stylesheet">
     <link href="CSSstyles/progress-bar.css" rel="stylesheet">
@@ -16,6 +17,22 @@
 <body>
     <header class="center-screen">
         <h1>Welcome to My Sudoku Puzzle Game!</h1>
+        <div class="btn">
+            <input type="checkbox" name="theme-btn" id="theme-btn">
+            <label for="theme-btn">
+				<span class="box">
+					<span class="ball"></span>
+					<span class="scenary">
+						<span class="moon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+						</span>
+						<span class="sun">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+						</span>
+					</span>
+				</span>
+			</label>
+        </div>
         <div class="github">
             <!-- GitHub Sponsors -->
             <a class="github-button" href="https://github.com/sponsors/huaminghuangtw" data-color-scheme="no-preference: dark_high_contrast; light: dark_high_contrast; dark: dark_high_contrast;" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @huaminghuangtw on GitHub">Sponsor</a>
@@ -25,50 +42,44 @@
             <a class="github-button" href="https://github.com/huaminghuangtw/Web-Sudoku-Puzzle-Game" data-color-scheme="no-preference: dark_high_contrast; light: dark_high_contrast; dark: dark_high_contrast;" data-icon="octicon-star" data-size="large" data-show-count="true"
                 aria-label="Star huaminghuangtw/Web-Sudoku-Puzzle-Game on GitHub">Star</a>
         </div>
-        <div id="setup-game" class="center-screen">
-            <div id="difficulty">
-                <h3>Choose difficulty: </h3>
-                <label><input type="radio" id="difficulty-easy" name="diff" value="easy" checked>Easy</label>
-                <label><input type="radio" id="difficulty-medium" name="diff" value="medium">Medium</label>
-                <label><input type="radio" id="difficulty-hard" name="diff" value="hard">Hard</label>
-            </div>
-            <div id="time">
-                <h3>Choose time: </h3>
-                <input type="radio" id="time-3mins" name="time" value="three" checked>
-                <label>3 mins</label>
-                <input type="radio" id="time-5mins" name="time" value="five">
-                <label>5 mins</label>
-                <input type="radio" id="time-10mins" name="time" value="ten">
-                <label>10 mins</label>
+        <br>
+        <div id="difficulty">
+            <h3 style="display: inline">Choose difficulty: </h3>
+            <div class="btn-group btn-group-sm" role="group">
+                <input type="radio" class="btn-check" id="difficulty-easy" name="diff" value="easy" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="difficulty-easy">Easy</label>
+
+                <input type="radio" class="btn-check" id="difficulty-medium" name="diff" value="medium" autocomplete="off">
+                <label class="btn btn-outline-primary" for="difficulty-medium">Medium</label>
+
+                <input type="radio" class="btn-check" id="difficulty-hard" name="diff" value="hard" autocomplete="off">
+                <label class="btn btn-outline-primary" for="difficulty-hard">Hard</label>
             </div>
         </div>
-        <button id="start-btn">New game!</button>
-    </header>
+        <div id="time">
+            <h3 style="display: inline">Choose time: </h3>
+            <div class="btn-group btn-group-sm" role="group">
+                <input type="radio" class="btn-check" id="time-3mins" name="time" value="three" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="time-3mins">3 mins</label>
 
-    <div class="btn">
-        <input type="checkbox" name="theme-btn" id="theme-btn">
-        <label for="theme-btn">
-			<span class="box">
-				<span class="ball"></span>
-				<span class="scenary">
-					<span class="moon">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-					</span>
-					<span class="sun">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-					</span>
-				</span>
-			</span>
-		</label>
-    </div>
+                <input type="radio" class="btn-check" id="time-5mins" name="time" value="five" autocomplete="off">
+                <label class="btn btn-outline-primary" for="time-5mins">5 mins</label>
+
+                <input type="radio" class="btn-check" id="time-10mins" name="time" value="ten" autocomplete="off">
+                <label class="btn btn-outline-primary" for="time-10mins">10 mins</label>
+            </div>
+        </div>
+        <br>
+        <button type="button" id="start-btn" class="btn btn-info">New game!</button>
+    </header>
 
     <div id="stats" class="center-screen">
         <p id="timer"></p>
         <div id="progress-bar-container"></div>
         <div id="animated-timer-container"></div>
         <p id="lives"></p>
-        <div class="snackbar" id="snackbar-win">You won!</div>
-        <div class="snackbar" id="snackbar-lose">You lost!</div>
+        <div class="snackbar" id="snackbar-win">You won!🏆</div>
+        <div class="snackbar" id="snackbar-lose">You lost!☹️</div>
     </div>
 
     <div id="game" class="center-screen">
@@ -88,14 +99,16 @@
 
     <p>
         <div class="center-screen">
-            <button id="solve-btn" disabled rel="tooltip" title="Solve the current Sudoku puzzle." data-placement="bottom">
-			Show solution
-		</button>
-            <button id="refresh-btn" disabled rel="tooltip" title="Refresh the Sudoku board with the same difficulty." data-placement="bottom">
-			Refresh puzzle
-		</button>
-            <button id="pause-btn" disabled>Pause</button>
-            <button id="resume-btn" disabled>Resume</button>
+            <div class="btn-group" role="group">
+                <button type="button" id="solve-btn" class="btn btn-secondary btn-sm" disabled rel="tooltip" title="Solve the current Sudoku puzzle." data-placement="bottom">
+					Show solution
+				</button>
+                <button type="button" id="refresh-btn" class="btn btn-secondary btn-sm" disabled rel="tooltip" title="Refresh the Sudoku board with the same difficulty." data-placement="bottom">
+					Refresh puzzle
+				</button>
+                <button type="button" id="pause-btn" class="btn btn-secondary btn-sm" disabled>Pause</button>
+                <button type="button" id="resume-btn" class="btn btn-secondary btn-sm" disabled>Resume</button>
+            </div>
         </div>
     </p>
 
