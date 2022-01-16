@@ -18,9 +18,12 @@ input[type="checkbox"] {
     display: none;
 }
 
-.btn {
+#theme-btn-container {
     align-self: flex-end;
     margin: 5px 10px;
+    position: absolute;
+    top: 5%;
+    right: 0;
 }
 
 .box {
@@ -48,8 +51,8 @@ input[type="checkbox"] {
     transition: all 1s ease;
     position: absolute;
     border-radius: 50%;
-    /* Set the width of box border as BOX-WIDTH/40 */
-    border: calc(var(--BoxWidth) / 40) solid black;
+    /* Set the width of box border as BOX-WIDTH/30 */
+    border: calc(var(--BoxWidth) / 30) solid black;
     box-sizing: border-box;
 }
 

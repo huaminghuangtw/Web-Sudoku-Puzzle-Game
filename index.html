@@ -2,21 +2,22 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
     <title>Sudoku</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="CSSStyles/bootstrap.css" rel="stylesheet">
-    <link href="CSSstyles/social-media-panel.css" rel="stylesheet">
-    <link href="CSSstyles/animated-countdown-timer.css" rel="stylesheet">
-    <link href="CSSstyles/progress-bar.css" rel="stylesheet">
-    <link href="CSSstyles/snackbar.css" rel="stylesheet">
-    <link href="CSSstyles/theme-toggle-button.css" rel="stylesheet">
-    <link href="CSSstyles/styles.css" rel="stylesheet">
+    <link href="./CSSstyles/social-media-panel.css" rel="stylesheet">
+    <link href="./CSSstyles/mybootstrap.css" rel="stylesheet">
+    <link href="./CSSstyles/animated-countdown-timer.css" rel="stylesheet">
+    <link href="./CSSstyles/progress-bar.css" rel="stylesheet">
+    <link href="./CSSstyles/snackbar.css" rel="stylesheet">
+    <link href="./CSSstyles/theme-toggle-button.css" rel="stylesheet">
+    <link href="./CSSstyles/styles.css" rel="stylesheet">
 </head>
 
 <body>
     <header class="center-screen">
         <h1>Welcome to My Sudoku Puzzle Game!</h1>
-        <div class="btn">
+        <div id="theme-btn-container">
             <input type="checkbox" name="theme-btn" id="theme-btn">
             <label for="theme-btn">
 				<span class="box">
@@ -41,34 +42,38 @@
             <a class="github-button" href="https://github.com/huaminghuangtw/Web-Sudoku-Puzzle-Game" data-color-scheme="no-preference: dark_high_contrast; light: dark_high_contrast; dark: dark_high_contrast;" data-icon="octicon-star" data-size="large" data-show-count="true"
                 aria-label="Star huaminghuangtw/Web-Sudoku-Puzzle-Game on GitHub">Star</a>
         </div>
-        <br>
-        <div id="difficulty">
-            <h3 style="display: inline">Choose difficulty: </h3>
-            <div class="btn-group btn-group-sm" role="group">
-                <input type="radio" class="btn-check" id="difficulty-easy" name="diff" value="easy" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="difficulty-easy">Easy</label>
+        <table class="center-screen" style="max-width: 80%; border-spacing: 50px 0; padding-top: 10px; padding-bottom: 30px;">
+            <tr>
+                <td style="text-align: center; font-size: 20px; padding-bottom: 3px;">Choose difficulty</td>
+                <td style="text-align: center; font-size: 20px; padding-bottom: 3px;">Choose time</td>
+            </tr>
+            <tr>
+                <td style="text-align: center">
+                    <div class="btn-group" role="group">
+                        <input type="radio" class="btn-check" id="difficulty-easy" name="diff" value="easy" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="difficulty-easy">Easy</label>
 
-                <input type="radio" class="btn-check" id="difficulty-medium" name="diff" value="medium" autocomplete="off">
-                <label class="btn btn-outline-primary" for="difficulty-medium">Medium</label>
+                        <input type="radio" class="btn-check" id="difficulty-medium" name="diff" value="medium" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="difficulty-medium">Medium</label>
 
-                <input type="radio" class="btn-check" id="difficulty-hard" name="diff" value="hard" autocomplete="off">
-                <label class="btn btn-outline-primary" for="difficulty-hard">Hard</label>
-            </div>
-        </div>
-        <div id="time">
-            <h3 style="display: inline">Choose time: </h3>
-            <div class="btn-group btn-group-sm" role="group">
-                <input type="radio" class="btn-check" id="time-3mins" name="time" value="three" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="time-3mins">3 mins</label>
+                        <input type="radio" class="btn-check" id="difficulty-hard" name="diff" value="hard" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="difficulty-hard">Hard</label>
+                    </div>
+                </td>
+                <td style="text-align: center">
+                    <div class="btn-group" role="group">
+                        <input type="radio" class="btn-check" id="time-3mins" name="time" value="three" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="time-3mins">3 mins</label>
 
-                <input type="radio" class="btn-check" id="time-5mins" name="time" value="five" autocomplete="off">
-                <label class="btn btn-outline-primary" for="time-5mins">5 mins</label>
+                        <input type="radio" class="btn-check" id="time-5mins" name="time" value="five" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="time-5mins">5 mins</label>
 
-                <input type="radio" class="btn-check" id="time-10mins" name="time" value="ten" autocomplete="off">
-                <label class="btn btn-outline-primary" for="time-10mins">10 mins</label>
-            </div>
-        </div>
-        <br>
+                        <input type="radio" class="btn-check" id="time-10mins" name="time" value="ten" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="time-10mins">10 mins</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
         <button type="button" id="start-btn" class="btn btn-info">New game!</button>
     </header>
 
@@ -168,13 +173,14 @@
     <!-- JavaScript (Placed at the bottom of body tag so that the DOM could load faster) -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    <script src="JSscripts/helperSudoku.js"></script>
-    <script src="JSscripts/utilitySudoku.js"></script>
-    <script src="JSscripts/solveSudoku.js"></script>
-    <script src="JSscripts/generateSudoku.js"></script>
-    <script src="JSscripts/timer.js"></script>
-    <script src="JSscripts/progress_bar.js"></script>
-    <script src="JSscripts/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="./JSscripts/helperSudoku.js"></script>
+    <script src="./JSscripts/utilitySudoku.js"></script>
+    <script src="./JSscripts/solveSudoku.js"></script>
+    <script src="./JSscripts/generateSudoku.js"></script>
+    <script src="./JSscripts/timer.js"></script>
+    <script src="./JSscripts/progress_bar.js"></script>
+    <script src="./JSscripts/app.js"></script>
 </body>
 
 </html>

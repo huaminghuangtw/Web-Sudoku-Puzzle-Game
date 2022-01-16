@@ -14,12 +14,13 @@
 }
 
 header {
-    padding-bottom: 10px;
-    border-bottom: 3px solid brown;
+    padding-bottom: 20px;
+    border-bottom: 4px solid brown;
 }
 
 h1 {
     font-size: 34pt;
+    display: inline-block;
 }
 
 .github {
