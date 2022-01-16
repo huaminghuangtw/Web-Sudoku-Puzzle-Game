@@ -1,4 +1,8 @@
-/* THEME TOGGLE BUTTON (BASED ON: https: //codepen.io/joyshaheb/pen/gOwOGQE) */
+/* (SCALABLE) THEME TOGGLE BUTTON (BASED ON: https: //codepen.io/joyshaheb/pen/gOwOGQE) */
+
+:root {
+    --BoxWidth: 50px;
+}
 
 body.dark {
     background-color: #616161;
@@ -24,39 +28,48 @@ input[type="checkbox"] {
     flex-direction: column;
     justify-content: center;
     /* BOX-WIDTH */
-    width: 60px;
+    width: var(--BoxWidth);
     /* BOX-WIDTH/2 */
-    height: 30px;
+    height: calc(var(--BoxWidth) / 2);
     background-color: black;
     transition: all 1s ease;
     position: relative;
     /* BOX-WIDTH/4 */
-    border-radius: 15px;
+    border-radius: calc(var(--BoxWidth) / 4);
     cursor: pointer;
 }
 
 .box .ball {
     /* BOX-WIDTH/2 */
-    width: 30px;
+    width: calc(var(--BoxWidth) / 2);
     /* BOX-WIDTH/2 */
-    height: 30px;
+    height: calc(var(--BoxWidth) / 2);
     background-color: grey;
     transition: all 1s ease;
     position: absolute;
     border-radius: 50%;
-    border: 3px solid black;
+    /* Set the width of box border as BOX-WIDTH/40 */
+    border: calc(var(--BoxWidth) / 40) solid black;
     box-sizing: border-box;
 }
 
 .box .scenary {
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: row;
     justify-content: space-between;
     transition: all 1s ease;
-    padding: 5px 10px 0px 10px;
+    /* Add paddings of BOX-WIDTH/12 to the left and right edge */
+    padding: 0px calc(var(--BoxWidth) / 12) 0px calc(var(--BoxWidth) / 12);
 }
 
 .box .scenary svg {
     /* BOX-WIDTH/3 */
-    width: 20px;
+    width: calc(var(--BoxWidth) / 3);
+    height: calc(var(--BoxWidth) / 3);
+    /* 24 is the original size */
+    transform: scale(calc(var(--BoxWidth) / 3) / 24);
+    margin: 0 auto;
+    display: block;
 }
