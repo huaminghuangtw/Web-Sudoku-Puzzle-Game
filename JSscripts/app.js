@@ -122,6 +122,8 @@ function resetGame() {
         // Remove unnecessary elements
         if (id("timer")) { id("timer").remove(); }
         if (id("progress-bar")) { id("progress-bar").remove(); }
+        // Close alert if it exists
+        $("#alert-pause").slideUp("200");
     }
     // Show number containers
     id("number-container").classList.remove("hidden");
@@ -151,6 +153,7 @@ function startGame() {
 
 function endGame() {
     disableSelect = true;
+    cancelAnimationFrame(timer);
     if (useProgressBar) {
         var t = id("timer").textContent.split(":");
     } else {

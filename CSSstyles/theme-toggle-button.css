@@ -71,7 +71,7 @@ input[type="checkbox"] {
     /* BOX-WIDTH/3 */
     width: calc(var(--BoxWidth) / 3);
     height: calc(var(--BoxWidth) / 3);
-    /* 24 is the original size */
+    /* 24 is the original size of svg */
     transform: scale(calc(var(--BoxWidth) / 3) / 24);
     margin: 0 auto;
     display: block;

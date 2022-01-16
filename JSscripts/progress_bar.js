@@ -11,10 +11,6 @@ function updateProgressBar() {
     var timeFraction = calculateTimeFraction();
     id("progress-bar").style.width = (timeFraction * 100) + "%";
     console.log(id("progress-bar").style.width);
-    if (timeLeft == 0) {
-        pauseProgressBar();
-        return;
-    }
     cancelAnimationFrame(progress_bar);
     progress_bar = requestAnimationFrame(updateProgressBar);
 }

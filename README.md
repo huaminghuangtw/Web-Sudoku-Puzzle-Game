@@ -18,13 +18,8 @@ Web Sudoku Puzzle Game
 
 ---
 
-### Video Demo
-🔗 https://www.youtube.com/watch?v=aTz_BDq05rw
-
----
-
 ### Motivation
-Since I first studied parallel programming, I developed a [personal side project](https://github.com/huaminghuangtw/Parallel-Sudoku-Solver) that aims to solve *large* Sudoku puzzles as efficiently as possible by means of various parallelization techniques and solving algorithms. The main focus/goal of this project, however, is not only to make an *interactive* Sudoku puzzle game that the user can play around with, but also to hone my web development skills. To this end, I've added graphical tools and features in the webpage which I hope you will enjoy and have fun! 😊
+Since I first studied parallel programming, I developed a [personal side project](https://github.com/huaminghuangtw/Parallel-Sudoku-Solver) that aims to solve *large* Sudoku puzzles as efficiently as possible by means of various parallelization techniques and solving algorithms. The main focus/goal of this project, however, is not only to make an *interactive* Sudoku puzzle game that the user can play around with, but also to hone my web development/design skills. To this end, I've added several widgets and features in the webpage which I hope you will enjoy and have fun! 😊
 
 ---
 

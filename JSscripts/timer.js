@@ -41,7 +41,7 @@ function updateTimer(now) {
             setRemainingPathColor(timeLeft);
         }
         if (timeLeft == 0) {
-            cancelAnimationFrame(timer);
+            pauseTimer();
             endGame();
             return;
         }
@@ -60,21 +60,25 @@ function formatTime(time) {
 }
 
 function pauseTimer() {
+    disableSelect = true;
     cancelAnimationFrame(timer);
     if (useProgressBar) {
         pauseProgressBar();
     }
     id("pause-btn").disabled = true;
     id("resume-btn").disabled = false;
+    $("#alert-pause").slideDown("slow");
 }
 
 function resumeTimer() {
+    disableSelect = false;
     timer = requestAnimationFrame(updateTimer);
     if (useProgressBar) {
         resumeProgressBar();
     }
     id("pause-btn").disabled = false;
     id("resume-btn").disabled = true;
+    $("#alert-pause").slideUp("200");
 }
 
 function setRemainingPathColor(timeLeft) {
