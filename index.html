@@ -6,8 +6,8 @@
     <title>Hua-Ming's Sudoku Puzzle Game</title>
     <link href="sudoku-icon.png" rel="icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="./CSSstyles/social-media-panel.css" rel="stylesheet">
     <link href="./CSSstyles/mybootstrap.css" rel="stylesheet">
+    <link href="./CSSstyles/social-media-panel.css" rel="stylesheet">
     <link href="./CSSstyles/animated-countdown-timer.css" rel="stylesheet">
     <link href="./CSSstyles/progress-bar.css" rel="stylesheet">
     <link href="./CSSstyles/snackbar-and-alert.css" rel="stylesheet">
@@ -110,19 +110,21 @@
         <div class="center-screen">
             <div class="btn-group" role="group">
                 <button type="button" id="solve-btn" class="btn btn-secondary btn-sm" disabled rel="tooltip" title="Solve the current Sudoku puzzle." data-placement="bottom">
-					Show solution
+					<i class="far fa-lightbulb"></i> Show solution
 				</button>
                 <button type="button" id="refresh-btn" class="btn btn-secondary btn-sm" disabled rel="tooltip" title="Refresh the Sudoku board with the same difficulty." data-placement="bottom">
-					Refresh puzzle
+					<i class="fas fa-sync"></i> Refresh puzzle
 				</button>
-                <button type="button" id="pause-btn" class="btn btn-secondary btn-sm" disabled>Pause</button>
-                <button type="button" id="resume-btn" class="btn btn-secondary btn-sm" disabled>Resume</button>
+                <button type="button" id="pause-btn" class="btn btn-secondary btn-sm" disabled><i class="fas fa-pause"></i> Pause</button>
+                <button type="button" id="resume-btn" class="btn btn-secondary btn-sm" disabled><i class="fas fa-hourglass-half"></i> Resume</button>
             </div>
         </div>
     </p>
-
-    <footer>
-        <p>This website is created by Hua-Ming Huang, December 2021</p>
+    
+    <hr style="width: 90%; margin-left: auto; margin-right: auto;">
+    
+    <footer class="small text-center text-muted">
+        <p>Created by Hua-Ming Huang. &copy; <script>document.write(new Date().getFullYear());</script></p>
     </footer>
 
     <div class="social-panel-container">

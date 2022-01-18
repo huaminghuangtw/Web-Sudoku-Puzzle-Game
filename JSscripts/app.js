@@ -163,9 +163,12 @@ function endGame() {
     var s = t[1];
     if (lives == 0 || (parseInt(m, 10) == 0 && parseInt(s, 10) == 0)) {
         var x = id("snackbar-lose");
+        var audio = new Audio('./audio/audio-lose.wav');
     } else {
         var x = id("snackbar-win");
+        var audio = new Audio('./audio/audio-win.wav');
     }
+    audio.play();
     x.classList.add("show");
     setTimeout(function() {
         x.classList.remove("show");

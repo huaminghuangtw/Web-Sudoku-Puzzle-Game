@@ -88,7 +88,9 @@ p.incorrect {
 }
 
 footer {
-    background-color: #5D3FD3;
-    color: white;
     text-align: center;
+    font-size: 0.875em;
+    text-align: center !important;
+    --bs-text-opacity: 1;
+    color: #6c757d !important;
 }
