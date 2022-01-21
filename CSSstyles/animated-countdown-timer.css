@@ -1,9 +1,5 @@
 /* ANIMATED COUNTDOWN TIMER (BASED ON: https://css-tricks.com/how-to-create-an-animated-countdown-timer-with-html-css-and-javascript/) */
 
-#animated-timer-container {
-    visibility: hidden;
-}
-
 .base-timer {
     position: relative;
     width: 150px;

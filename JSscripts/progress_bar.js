@@ -10,7 +10,7 @@ function startProgressBar() {
 function updateProgressBar() {
     var timeFraction = calculateTimeFraction();
     id("progress-bar").style.width = (timeFraction * 100) + "%";
-    console.log(id("progress-bar").style.width);
+    setProgressBarColor(timeLeft);
     cancelAnimationFrame(progress_bar);
     progress_bar = requestAnimationFrame(updateProgressBar);
 }
@@ -21,4 +21,15 @@ function pauseProgressBar() {
 
 function resumeProgressBar() {
     progress_bar = requestAnimationFrame(updateProgressBar);
+}
+
+function setProgressBarColor(timeLeft) {
+    const { alert, warning, info } = COLOR_CODES;
+    if (timeLeft <= alert.threshold) {
+        id("progress-bar").classList.remove(warning.color);
+        id("progress-bar").classList.add(alert.color);
+    } else if (timeLeft <= warning.threshold) {
+        id("progress-bar").classList.remove(info.color);
+        id("progress-bar").classList.add(warning.color);
+    }
 }

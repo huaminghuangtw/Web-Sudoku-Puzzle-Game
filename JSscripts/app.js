@@ -18,15 +18,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add event listener to theme toggle button
     id("theme-btn").addEventListener("change", function() {
         if (this.checked) {
+            // dark mode
             qs(".box").setAttribute('style', 'background-color:#CCCCCC;')
             qs(".ball").setAttribute('style', 'transform:translatex(100%);')
             document.body.classList.remove("light");
             document.body.classList.add("dark");
+            qs(":root").style.setProperty('--digitColor', '#82FA58');
+            qs(":root").style.setProperty('--digitBackgroundColor', '#505050');
         } else {
+            // light mode
             qs(".box").setAttribute('style', 'background-color:black; color:white;')
             qs(".ball").setAttribute('style', 'transform:translatex(0%);')
             document.body.classList.remove("dark");
             document.body.classList.add("light");
+            qs(":root").style.setProperty('--digitColor', 'black');
+            qs(":root").style.setProperty('--digitBackgroundColor', '#EEEEEE');
         }
     });
     // Add event listener to each of number in number container
@@ -85,17 +91,23 @@ function resetGame() {
     timeElapsed = -1;
     timeLeft = TIME_LIMIT;
     if (useProgressBar) {
-        id("timer").textContent = formatTime(timeLeft);
-        id("progress-bar-container").style.visibility = "visible";
+        id("digital-timer-container").classList.remove("hidden");
+        id("digital-timer-container").innerHTML =
+            `<div id="digital-timer">
+				<span class="digit"></span>
+				<span class="digit"></span>
+				<span class="colon"></span>
+				<span class="digit"></span>
+				<span class="digit"></span>
+			</div>`;
+        id("progress-bar-container").classList.remove("hidden");
         id("progress-bar-container").innerHTML =
-            `<div id="progress-bar"></div>`;
+            `<div id="progress-bar" class="green"></div>`;
         // Start timer and progress bar
         startProgressBar();
         startTimer();
-        // Remove unnecessary elements
-        if (id("animated-timer-container")) { id("animated-timer-container").remove(); }
     } else {
-        id("animated-timer-container").style.visibility = "visible";
+        id("animated-timer-container").classList.remove("hidden");
         id("animated-timer-container").classList.add("placement");
         id("animated-timer-container").innerHTML =
             `<div class="base-timer">
@@ -115,18 +127,22 @@ function resetGame() {
 						></path>
 					</g>
 				</svg>
-				<span id="base-timer-label" class="base-timer__label">${formatTime(timeLeft)}</span>
+				<div id="base-timer-label" class="base-timer__label">
+					<span class="digit"></span>
+					<span class="digit"></span>
+					<span class="colon"></span>
+					<span class="digit"></span>
+					<span class="digit"></span>
+				</div>
 			</div>`;
+        qs(":root").style.setProperty("--scalingFactorForTimer", "0.6");
         // Start timer
         startTimer();
-        // Remove unnecessary elements
-        if (id("timer")) { id("timer").remove(); }
-        if (id("progress-bar")) { id("progress-bar").remove(); }
-        // Close alert if it exists
-        $("#alert-pause").slideUp("200");
     }
     // Show number containers
     id("number-container").classList.remove("hidden");
+    // Close alert if it exists
+    $("#alert-pause").slideUp("200");
     // Enable "Show solution", "Refresh puzzle", and "Pause" button
     id("solve-btn").disabled = false;
     id("refresh-btn").disabled = false;
@@ -154,11 +170,7 @@ function startGame() {
 function endGame() {
     disableSelect = true;
     cancelAnimationFrame(timer);
-    if (useProgressBar) {
-        var t = id("timer").textContent.split(":");
-    } else {
-        var t = id("base-timer-label").innerHTML.split(":");
-    }
+    var t = formatTime(timeLeft).split(":");
     var m = t[0];
     var s = t[1];
     if (lives == 0 || (parseInt(m, 10) == 0 && parseInt(s, 10) == 0)) {
@@ -172,7 +184,7 @@ function endGame() {
     x.classList.add("show");
     setTimeout(function() {
         x.classList.remove("show");
-    }, 3000);
+    }, 2999);
     id("solve-btn").disabled = true;
     id("refresh-btn").disabled = true;
     id("pause-btn").disabled = true;

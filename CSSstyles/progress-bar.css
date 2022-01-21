@@ -1,7 +1,6 @@
 /* PROGRESS BAR */
 
 #progress-bar-container {
-    visibility: hidden;
     width: 80%;
     margin: 25px auto;
     border: 1px black solid;
@@ -13,5 +12,16 @@
     width: 100%;
     transition: width 1s linear;
     border-radius: 10px;
+}
+
+#progress-bar.green {
+    background-color: rgb(65, 184, 131);
+}
+
+#progress-bar.orange {
     background-color: orange;
+}
+
+#progress-bar.red {
+    background-color: red;
 }

@@ -8,8 +8,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="./CSSstyles/mybootstrap.css" rel="stylesheet">
     <link href="./CSSstyles/social-media-panel.css" rel="stylesheet">
-    <link href="./CSSstyles/animated-countdown-timer.css" rel="stylesheet">
+    <link href="./CSSstyles/digital-timer.css" rel="stylesheet">
     <link href="./CSSstyles/progress-bar.css" rel="stylesheet">
+    <link href="./CSSstyles/animated-countdown-timer.css" rel="stylesheet">
     <link href="./CSSstyles/snackbar-and-alert.css" rel="stylesheet">
     <link href="./CSSstyles/theme-toggle-button.css" rel="stylesheet">
     <link href="./CSSstyles/styles.css" rel="stylesheet">
@@ -83,9 +84,9 @@
     </div>
 
     <div id="stats" class="center-screen">
-        <p id="timer"></p>
-        <div id="progress-bar-container"></div>
-        <div id="animated-timer-container"></div>
+        <div id="animated-timer-container" class="hidden" style="margin-top: 35px"></div>
+        <div id="digital-timer-container" class="hidden" style="margin-top: 35px"></div>
+        <div id="progress-bar-container" class="hidden"></div>
         <p id="lives"></p>
         <div class="snackbar" id="snackbar-win">You won!🏆</div>
         <div class="snackbar" id="snackbar-lose">You lost!☹️</div>
@@ -120,11 +121,15 @@
             </div>
         </div>
     </p>
-    
-    <hr style="width: 90%; margin-left: auto; margin-right: auto;">
-    
+
+    <hr style="width: 100%; margin-left: auto; margin-right: auto;">
+
     <footer class="small text-center text-muted">
-        <p>Created by Hua-Ming Huang. &copy; <script>document.write(new Date().getFullYear());</script></p>
+        <p>Created by Hua-Ming Huang. &copy;
+            <script>
+                document.write(new Date().getFullYear());
+            </script>
+        </p>
         <div align="center">
             <a href="http://www.amazingcounters.com">
                 <img border="0" src="http://cc.amazingcounters.com/counter.php?i=3247099&c=9741610" alt="AmazingCounters.com">

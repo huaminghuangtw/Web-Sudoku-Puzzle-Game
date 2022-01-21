@@ -1,5 +1,7 @@
 // Functions for timer
 
+const digits = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 30;
 const ALERT_THRESHOLD = 10;
@@ -24,19 +26,30 @@ var timeElapsed;
 var timeLeft;
 var remainingPathColor = COLOR_CODES.info.color;
 
+var digitObjects;
+var min;
+var sec;
+
 function startTimer() {
+    // For zero-th second
+    digitObjects = qsa('.digit');
+    min = [digitObjects[0], digitObjects[1]];
+    sec = [digitObjects[2], digitObjects[3]];
+    drawMinute(timeLeft);
+    drawSecond(timeLeft);
+    // Update timer every second
     timer = requestAnimationFrame(updateTimer);
 }
 
 function updateTimer(now) {
+    // Update timer every second
     if ((last == 0) || (now - last) >= 1000) {
         last = now;
         timeElapsed++;
         timeLeft = TIME_LIMIT - timeElapsed;
-        if (useProgressBar) {
-            id("timer").textContent = formatTime(timeLeft);
-        } else {
-            id("base-timer-label").textContent = formatTime(timeLeft);
+        drawMinute(timeLeft);
+        drawSecond(timeLeft);
+        if (!useProgressBar) {
             setCircleDasharray();
             setRemainingPathColor(timeLeft);
         }
@@ -53,7 +66,7 @@ function updateTimer(now) {
 function formatTime(time) {
     // Convert a string of seconds into a string of MM:SS format
     var m = Math.floor(time / 60);
-    var s = time % 60;
+    var s = Math.floor(time % 60);
     m = (m < 10) ? ("0" + m) : m;
     s = (s < 10) ? ("0" + s) : s;
     return `${m}:${s}`;
@@ -106,4 +119,19 @@ function calculateTimeFraction() {
 function setCircleDasharray() {
     const circleDasharray = `${(calculateTimeFraction() * FULL_DASH_ARRAY).toFixed(0)} 283`;
     id("base-timer-path-remaining").setAttribute("stroke-dasharray", circleDasharray);
+}
+
+function drawMinute(time) {
+    drawDigits(min, Math.floor(time / 60));
+}
+
+function drawSecond(time) {
+    drawDigits(sec, Math.floor(time % 60));
+}
+
+function drawDigits(timeArray, time) {
+    var tens = Math.floor(time / 10);
+    var units = Math.floor(time % 10);
+    timeArray[0].className = "digit " + digits[tens];
+    timeArray[1].className = "digit " + digits[units];
 }
