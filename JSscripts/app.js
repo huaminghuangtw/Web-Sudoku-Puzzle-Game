@@ -83,8 +83,8 @@ function resetGame() {
     // Initialize variables
     lives = 3;
     disableSelect = false;
-    // Display number of lives remaining
-    id("lives").textContent = "Lives remaining: " + lives;
+    // Display number of lives remaining/left
+    displayLives(lives);
     // Set how long the timer should be
     if (id("time-3mins").checked) {
         TIME_LIMIT = 60 * 3;
@@ -273,7 +273,7 @@ function updateMove() {
             selectedTile.classList.add("incorrect");
             setTimeout(function() {
                 lives--;
-                id("lives").textContent = "Lives remaining: " + lives;
+                displayLives(lives);
                 if (lives == 0) {
                     endGame();
                 } else {
@@ -316,7 +316,16 @@ function clearPrevious() {
     selectedNum = null;
 }
 
-var show_solution = function() {
+function displayLives(lives) {
+    if (lives == 0) {
+        id("lives").textContent = "Lives: 0";
+
+    } else {
+        id("lives").textContent = "Lives: " + "🖤".repeat(lives);
+    }
+}
+
+function shoe_solution() {
     // Display solution to the current Sudoku puzzle, highlighting the answers with green color
     for (let i = 0; i < id("board").children.length; i++) {
         var tile = id("board").children[i];
