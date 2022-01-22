@@ -65,13 +65,24 @@
                 <td style="text-align: center">
                     <div class="btn-group" role="group">
                         <input type="radio" class="btn-check" id="time-3mins" name="time" value="three" autocomplete="off" checked>
-                        <label class="btn btn-outline-primary" for="time-3mins">3 mins</label>
+                        <label class="btn btn-outline-primary" for="time-3mins">
+							<i class="fas fa-hourglass-start"></i> 3 mins
+						</label>
 
                         <input type="radio" class="btn-check" id="time-5mins" name="time" value="five" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="time-5mins">5 mins</label>
+                        <label class="btn btn-outline-primary" for="time-5mins">
+							<i class="fas fa-hourglass-start"></i> 5 mins
+						</label>
 
                         <input type="radio" class="btn-check" id="time-10mins" name="time" value="ten" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="time-10mins">10 mins</label>
+                        <label class="btn btn-outline-primary" for="time-10mins">
+							<i class="fas fa-hourglass-start"></i> 10 mins
+						</label>
+
+                        <input type="radio" class="btn-check" id="time-stopwatch" name="time" value="stopwatch" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="time-stopwatch">
+							<i class="fas fa-stopwatch"></i> Stopwatch
+						</label>
                     </div>
                 </td>
             </tr>
@@ -91,13 +102,22 @@
 
     <div id="game-container">
         <div class="alert alert-warning center-screen hidden" id="alert-pause" role="alert">
-            Timer paused!
+            <i class="far fa-pause-circle"></i> PAUSED
         </div>
 
         <div id="stats" class="center-screen">
-            <div id="animated-timer-container" class="hidden" style="margin-top: 35px"></div>
-            <div id="digital-timer-container" class="hidden" style="margin-top: 35px"></div>
-            <div id="progress-bar-container" class="hidden"></div>
+            <!-- Countdown timer -->
+            <div id="time-1">
+                <!-- Type 1 -->
+                <div id="animated-timer-container" class="hidden" style="margin-top: 35px"></div>
+                <!-- Type 2 -->
+                <div id="digital-timer-container" class="hidden" style="margin-top: 35px"></div>
+                <div id="progress-bar-container" class="hidden"></div>
+            </div>
+            <!-- Stopwatch -->
+            <div id="time-2">
+                <div id="stopwatch-container" class="hidden" style="margin-top: 35px"></div>
+            </div>
             <p id="lives"></p>
             <div class="snackbar" id="snackbar-win">You won!🏆</div>
             <div class="snackbar" id="snackbar-lose">You lost!☹️</div>
@@ -210,8 +230,9 @@
     <script src="./JSscripts/utilitySudoku.js"></script>
     <script src="./JSscripts/solveSudoku.js"></script>
     <script src="./JSscripts/generateSudoku.js"></script>
-    <script src="./JSscripts/timer.js"></script>
-    <script src="./JSscripts/progress_bar.js"></script>
+    <script src="./JSscripts/stopwatch.js"></script>
+    <script src="./JSscripts/countdown-timer.js"></script>
+    <script src="./JSscripts/progress-bar.js"></script>
     <script src="./JSscripts/app.js"></script>
 </body>
 

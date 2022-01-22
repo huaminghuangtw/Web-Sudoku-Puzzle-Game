@@ -7,7 +7,7 @@ var lives;
 var selectedNum;
 var selectedTile;
 var disableSelect;
-
+var timerType;
 
 // Run script once DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -60,9 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add event listener to "Refresh puzzle" button
     id("refresh-btn").addEventListener("click", refresh_puzzle);
     // Add event listener to "Pause" button
-    id("pause-btn").addEventListener("click", pauseTimer);
+    id("pause-btn").addEventListener("click", pause);
     // Add event listener to "Resume" button
-    id("resume-btn").addEventListener("click", resumeTimer);
+    id("resume-btn").addEventListener("click", resume);
     // Add event listener to components of social media panel
     const floating_btn = qs(".floating-btn");
     const close_btn = qs(".close-btn");
@@ -88,35 +88,42 @@ function resetGame() {
     // Set how long the timer should be
     if (id("time-3mins").checked) {
         TIME_LIMIT = 60 * 3;
+        timerType = "countdown";
     } else if (id("time-5mins").checked) {
         TIME_LIMIT = 60 * 5;
+        timerType = "countdown";
     } else if (id("time-10mins").checked) {
         TIME_LIMIT = 60 * 10;
+        timerType = "countdown";
+    } else if (id("time-stopwatch").checked) {
+        timerType = "stopwatch";
     }
-    last = 0; // timestamp of the last updateTimer() call
-    timeElapsed = -1;
-    timeLeft = TIME_LIMIT;
-    if (useProgressBar) {
-        id("digital-timer-container").classList.remove("hidden");
-        id("digital-timer-container").innerHTML =
-            `<div id="digital-timer">
-				<span class="digit"></span>
-				<span class="digit"></span>
-				<span class="colon"></span>
-				<span class="digit"></span>
-				<span class="digit"></span>
-			</div>`;
-        id("progress-bar-container").classList.remove("hidden");
-        id("progress-bar-container").innerHTML =
-            `<div id="progress-bar" class="green"></div>`;
-        // Start timer and progress bar
-        startProgressBar();
-        startTimer();
-    } else {
-        id("animated-timer-container").classList.remove("hidden");
-        id("animated-timer-container").classList.add("placement");
-        id("animated-timer-container").innerHTML =
-            `<div class="base-timer">
+    // Set up elements
+    if (timerType == "countdown") {
+        id("time-1").classList.remove("hidden");
+        id("time-2").classList.add("hidden");
+        if (useProgressBar) {
+            id("digital-timer-container").classList.remove("hidden");
+            id("digital-timer-container").innerHTML =
+                `<div id="digital-timer">
+					<span class="digit"></span>
+					<span class="digit"></span>
+					<span class="colon"></span>
+					<span class="digit"></span>
+					<span class="digit"></span>
+				</div>`;
+            id("progress-bar-container").classList.remove("hidden");
+            id("progress-bar-container").innerHTML =
+                `<div id="progress-bar" class="green"></div>`;
+            qs(":root").style.setProperty("--scalingFactorForTimer", "0.8");
+            // Start countdown timer and progress bar
+            startProgressBar();
+            startTimer(TIME_LIMIT);
+        } else {
+            id("animated-timer-container").classList.remove("hidden");
+            id("animated-timer-container").classList.add("placement");
+            id("animated-timer-container").innerHTML =
+                `<div class="base-timer">
 				<svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
 					<g class="base-timer__circle">
 						<circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
@@ -141,9 +148,28 @@ function resetGame() {
 					<span class="digit"></span>
 				</div>
 			</div>`;
-        qs(":root").style.setProperty("--scalingFactorForTimer", "0.6");
-        // Start timer
-        startTimer();
+            qs(":root").style.setProperty("--scalingFactorForTimer", "0.6");
+            // Start countdown timer
+            startTimer(TIME_LIMIT);
+        }
+    } else if (timerType == "stopwatch") {
+        id("time-1").classList.add("hidden");
+        id("time-2").classList.remove("hidden");
+        id("stopwatch-container").classList.remove("hidden");
+        id("stopwatch-container").innerHTML =
+            `<div id="stopwatch">
+				<span class="digit2"></span>
+				<span class="digit2"></span>
+				<span class="colon2"></span>
+				<span class="digit2"></span>
+				<span class="digit2"></span>
+				<span class="colon2"></span>
+				<span class="digit2"></span>
+				<span class="digit2"></span>
+			</div>`;
+        qs(":root").style.setProperty("--scalingFactorForTimer", "0.8");
+        // Start stopwatch
+        startTimeCounter();
     }
     // Show number containers
     id("number-container").classList.remove("hidden");
@@ -177,16 +203,27 @@ function startGame() {
 
 function endGame() {
     disableSelect = true;
-    cancelAnimationFrame(timer);
-    var t = formatTime(timeLeft).split(":");
-    var m = t[0];
-    var s = t[1];
-    if (lives == 0 || (parseInt(m, 10) == 0 && parseInt(s, 10) == 0)) {
-        var x = id("snackbar-lose");
-        var audio = new Audio('./audio/audio-lose.wav');
-    } else {
-        var x = id("snackbar-win");
-        var audio = new Audio('./audio/audio-win.wav');
+    if (timerType == "countdown") {
+        cancelAnimationFrame(countdown_timer);
+        var t = formatTime(timeLeft).split(":");
+        var m = t[0];
+        var s = t[1];
+        if (lives == 0 || (parseInt(m, 10) == 0 && parseInt(s, 10) == 0)) {
+            var x = id("snackbar-lose");
+            var audio = new Audio('./audio/audio-lose.wav');
+        } else {
+            var x = id("snackbar-win");
+            var audio = new Audio('./audio/audio-win.wav');
+        }
+    } else if (timerType == "stopwatch") {
+        cancelAnimationFrame(stopwatch);
+        if (lives == 0) {
+            var x = id("snackbar-lose");
+            var audio = new Audio('./audio/audio-lose.wav');
+        } else {
+            var x = id("snackbar-win");
+            var audio = new Audio('./audio/audio-win.wav');
+        }
     }
     audio.play();
     x.classList.add("show");
@@ -307,7 +344,7 @@ function clearPrevious() {
     for (let i = 0; i < tiles.length; i++) {
         tiles[i].remove();
     }
-    if (timer) { clearInterval(timer); }
+    if (countdown_timer) { clearInterval(countdown_timer); }
     if (progress_bar) { clearInterval(progress_bar); }
     for (let i = 0; i < id("number-container").children.length; i++) {
         id("number-container").children[i].classList.remove("selected");
@@ -319,13 +356,12 @@ function clearPrevious() {
 function displayLives(lives) {
     if (lives == 0) {
         id("lives").textContent = "Lives: 0";
-
     } else {
         id("lives").textContent = "Lives: " + "🖤".repeat(lives);
     }
 }
 
-function shoe_solution() {
+function show_solution() {
     // Display solution to the current Sudoku puzzle, highlighting the answers with green color
     for (let i = 0; i < id("board").children.length; i++) {
         var tile = id("board").children[i];
@@ -336,8 +372,12 @@ function shoe_solution() {
     }
     // Display solution to the console
     print_board(solution);
-    // Pause timer
-    pauseTimer();
+    // Pause countdown timer or stopwatch
+    if (timerType == "countdown") {
+        pauseTimer();
+    } else if (timerType == "stopwatch") {
+        pauseTimeCounter();
+    }
     // Disable "Show solution" and "Resume" button
     id("solve-btn").disabled = true;
     id("resume-btn").disabled = true;
@@ -357,8 +397,25 @@ function refresh_puzzle() {
     generateBoard(inputBoard);
     // Compute solution for the gieven input Sudoku board
     solution = board_grid_to_string(solveSudoku(board_string_to_grid(inputBoard)));
+    // Show game components when everything is ready
+    id("game-container").style.visibility = "visible";
 }
 
+function pause() {
+    if (timerType == "countdown") {
+        pauseTimer();
+    } else if (timerType == "stopwatch") {
+        pauseTimeCounter();
+    }
+}
+
+function resume() {
+    if (timerType == "countdown") {
+        resumeTimer();
+    } else if (timerType == "stopwatch") {
+        resumeTimeCounter();
+    }
+}
 
 // Helper functions
 function id(id) {

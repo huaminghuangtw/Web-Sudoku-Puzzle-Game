@@ -1,13 +1,15 @@
 /* DIGITAL CLOCK/TIMER (BASED ON: https://codepen.io/FWeinb/pen/LmKvl) */
 
 :root {
-    --scalingFactorForTimer: 0.8;
+    --scalingFactorForTimer: 1;
     --digitColor: black;
     --digitBackgroundColor: #EEEEEE;
 }
 
 .digit,
-.colon {
+.digit2,
+.colon,
+.colon2 {
     position: relative;
     display: inline-block;
     width: calc(var(--scalingFactorForTimer) * 5px);
@@ -15,14 +17,16 @@
     margin: calc(var(--scalingFactorForTimer) * 2.5px);
 }
 
-.colon {
+.colon,
+.colon2 {
     background: linear-gradient(-90deg, var(--digitColor) 10px, transparent 10px), linear-gradient(-90deg, var(--digitColor) 10px, transparent 10px);
     background-position: 0 calc(var(--scalingFactorForTimer) * 20px), 0 calc(var(--scalingFactorForTimer) * 32.5px);
     background-repeat: no-repeat;
     background-size: calc(var(--scalingFactorForTimer) * 5px) calc(var(--scalingFactorForTimer) * 5px), calc(var(--scalingFactorForTimer) * 5px) calc(var(--scalingFactorForTimer) * 5px);
 }
 
-.digit {
+.digit,
+.digit2 {
     width: calc(var(--scalingFactorForTimer) * 30px);
     background-image: linear-gradient(90deg, transparent calc(var(--scalingFactorForTimer) * 5px), var(--digitBackgroundColor) calc(var(--scalingFactorForTimer) * 5px), var(--digitBackgroundColor) calc(var(--scalingFactorForTimer) * 25px), transparent calc(var(--scalingFactorForTimer) * 25px)), /* Top */
     linear-gradient(90deg, transparent calc(var(--scalingFactorForTimer) * 5px), var(--digitBackgroundColor) calc(var(--scalingFactorForTimer) * 5px), var(--digitBackgroundColor) calc(var(--scalingFactorForTimer) * 25px), transparent calc(var(--scalingFactorForTimer) * 25px)), /* Middle */

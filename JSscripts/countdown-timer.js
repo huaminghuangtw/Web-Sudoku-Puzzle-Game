@@ -1,6 +1,6 @@
-// Functions for timer
+// Functions for countdown timer
 
-const digits = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+digits = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 30;
@@ -19,7 +19,7 @@ const COLOR_CODES = {
     }
 };
 
-var timer = null;
+var countdown_timer = null;
 var TIME_LIMIT;
 var last; // timestamp of the last updateTimer() call
 var timeElapsed;
@@ -30,7 +30,11 @@ var digitObjects;
 var min;
 var sec;
 
-function startTimer() {
+function startTimer(TIME_LIMIT) {
+    // Initialize variables
+    last = 0; // timestamp of the last updateTimer() call
+    timeElapsed = -1;
+    timeLeft = TIME_LIMIT;
     // For zero-th second
     digitObjects = qsa('.digit');
     min = [digitObjects[0], digitObjects[1]];
@@ -38,7 +42,7 @@ function startTimer() {
     drawMinute(timeLeft);
     drawSecond(timeLeft);
     // Update timer every second
-    timer = requestAnimationFrame(updateTimer);
+    countdown_timer = requestAnimationFrame(updateTimer);
 }
 
 function updateTimer(now) {
@@ -59,8 +63,8 @@ function updateTimer(now) {
             return;
         }
     }
-    cancelAnimationFrame(timer);
-    timer = requestAnimationFrame(updateTimer);
+    cancelAnimationFrame(countdown_timer);
+    countdown_timer = requestAnimationFrame(updateTimer);
 }
 
 function formatTime(time) {
@@ -74,7 +78,7 @@ function formatTime(time) {
 
 function pauseTimer() {
     disableSelect = true;
-    cancelAnimationFrame(timer);
+    cancelAnimationFrame(countdown_timer);
     if (useProgressBar) {
         pauseProgressBar();
     }
@@ -85,7 +89,7 @@ function pauseTimer() {
 
 function resumeTimer() {
     disableSelect = false;
-    timer = requestAnimationFrame(updateTimer);
+    countdown_timer = requestAnimationFrame(updateTimer);
     if (useProgressBar) {
         resumeProgressBar();
     }
