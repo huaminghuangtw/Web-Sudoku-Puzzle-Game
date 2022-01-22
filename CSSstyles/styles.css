@@ -5,12 +5,12 @@
 }
 
 .center-screen {
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-    justify-items: center;
-    text-align: center;
-    margin: 0 auto;
+    align-content: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+    justify-items: center !important;
+    text-align: center !important;
+    margin: 0 auto !important;
 }
 
 header {

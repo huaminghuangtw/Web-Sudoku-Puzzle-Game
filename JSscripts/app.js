@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.classList.add("dark");
             qs(":root").style.setProperty('--digitColor', '#82FA58');
             qs(":root").style.setProperty('--digitBackgroundColor', '#505050');
+            id("spinner-element-1").style.color = "#ff9419";
+            id("spinner-element-2").style.color = "#ff9419";
         } else {
             // light mode
             qs(".box").setAttribute('style', 'background-color:black; color:white;')
@@ -74,6 +76,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function resetGame() {
+    // Hide game components before loading a new puzzle
+    id("game-container").style.visibility = "hidden";
+    // Close alert if it exists
+    if (id("alert-pause")) { $("#alert-pause").slideUp("200"); }
     // Initialize variables
     lives = 3;
     disableSelect = false;
@@ -141,8 +147,6 @@ function resetGame() {
     }
     // Show number containers
     id("number-container").classList.remove("hidden");
-    // Close alert if it exists
-    $("#alert-pause").slideUp("200");
     // Enable "Show solution", "Refresh puzzle", and "Pause" button
     id("solve-btn").disabled = false;
     id("refresh-btn").disabled = false;
@@ -152,19 +156,23 @@ function resetGame() {
 }
 
 function startGame() {
+    // Reset setting of the game
+    resetGame();
     // Choose board difficulty and initialize the Sudoku board accordingly
     if (id("difficulty-easy").checked) {
         inputBoard = readInput("Test_Cases/9x9_easy.txt");
     } else if (id("difficulty-medium").checked) {
         inputBoard = readInput("Test_Cases/9x9_medium.txt");
     } else if (id("difficulty-hard").checked) {
+        id("spinner-container").classList.remove("hidden");
         inputBoard = readInput("Test_Cases/9x9_hard.txt");
+        id("spinner-container").classList.add("hidden");
     }
     generateBoard(inputBoard);
     // Compute solution for the gieven input Sudoku board
     solution = board_grid_to_string(solveSudoku(board_string_to_grid(inputBoard)));
-    // Reset setting of the game
-    resetGame();
+    // Show game components when everything is ready
+    id("game-container").style.visibility = "visible";
 }
 
 function endGame() {
@@ -327,6 +335,8 @@ var show_solution = function() {
 }
 
 function refresh_puzzle() {
+    // Reset setting of the game
+    resetGame();
     // Choose board difficulty and initialize the Sudoku board accordingly
     if (id("difficulty-easy").checked) {
         inputBoard = generateSudoku("easy");
@@ -338,8 +348,6 @@ function refresh_puzzle() {
     generateBoard(inputBoard);
     // Compute solution for the gieven input Sudoku board
     solution = board_grid_to_string(solveSudoku(board_string_to_grid(inputBoard)));
-    // Reset setting of the game
-    resetGame();
 }
 
 
