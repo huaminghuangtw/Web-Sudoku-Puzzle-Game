@@ -19,7 +19,7 @@ Web Sudoku Puzzle Game
 ---
 
 ### Motivation
-Since I first studied parallel programming, I developed a [personal side project](https://github.com/huaminghuangtw/Parallel-Sudoku-Solver) that aims to solve *large* Sudoku puzzles as efficiently as possible by means of various parallelization techniques and solving algorithms. The main focus/goal of this project, however, is not only to make an *interactive* Sudoku puzzle game that the user can play around with, but also to hone my web development/design skills. To this end, I've added several widgets and features in the webpage which I hope you will enjoy and have fun! 😊
+Since I first studied parallel programming, I developed a [personal side project](https://github.com/huaminghuangtw/Parallel-Sudoku-Solver) that aims to solve *large* Sudoku puzzles as efficiently as possible by means of various parallelization techniques and solving algorithms. The main focus/goal of this project, however, is not only to make an *interactive* Sudoku puzzle game that the user can play around with, but also to hone my web development/design skills. Based on [RedFlyer Coding's tutorial video on YouTube](https://www.youtube.com/watch?v=ea3UBpMHDoc&ab_channel=RedFlyerCoding), I've added several widgets and features/functionalities in the webpage which I hope you will enjoy and have fun!😊
 
 ---
 

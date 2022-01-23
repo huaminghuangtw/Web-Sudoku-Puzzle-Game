@@ -15,7 +15,7 @@ var m;
 var s;
 
 function startTimeCounter() {
-    // initialize variables
+    // Initialize variables
     stopwatch = null;
     startTime = null;
     isPaused = false;
@@ -25,6 +25,7 @@ function startTimeCounter() {
     h = [digitElements[0], digitElements[1]];
     m = [digitElements[2], digitElements[3]];
     s = [digitElements[4], digitElements[5]];
+    // Update stopwatch
     stopwatch = requestAnimationFrame(updateTimeCounter);
 }
 
@@ -52,7 +53,6 @@ function updateTimeCounter(timestamp) {
 }
 
 function pauseTimeCounter() {
-    disableSelect = true;
     isPaused = true;
     id("pause-btn").disabled = true;
     id("resume-btn").disabled = false;
@@ -60,7 +60,6 @@ function pauseTimeCounter() {
 }
 
 function resumeTimeCounter() {
-    disableSelect = false;
     isPaused = false;
     id("pause-btn").disabled = false;
     id("resume-btn").disabled = true;

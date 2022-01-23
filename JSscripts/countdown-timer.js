@@ -77,7 +77,6 @@ function formatTime(time) {
 }
 
 function pauseTimer() {
-    disableSelect = true;
     cancelAnimationFrame(countdown_timer);
     if (useProgressBar) {
         pauseProgressBar();
@@ -88,7 +87,6 @@ function pauseTimer() {
 }
 
 function resumeTimer() {
-    disableSelect = false;
     countdown_timer = requestAnimationFrame(updateTimer);
     if (useProgressBar) {
         resumeProgressBar();

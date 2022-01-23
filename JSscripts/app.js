@@ -3,8 +3,8 @@ var inputBoard;
 var currentBoard;
 var candidates;
 var solution;
-var board_size;
-var box_size;
+var board_size = 9;
+var box_size = 3;
 var lives;
 var selectedNum;
 var selectedTile;
@@ -62,8 +62,12 @@ document.addEventListener('DOMContentLoaded', function() {
     id("tips-btn").addEventListener("click", display_tips);
     // Add event listener to "Show solution" button
     id("solve-btn").addEventListener("click", show_solution);
+    // Add event listener to "Solve one step" button
+    id("solve-one-step-btn").addEventListener("click", solve_one_step);
     // Add event listener to "Refresh puzzle" button
     id("refresh-btn").addEventListener("click", refresh_puzzle);
+    // Add event listener to "Restart puzzle" button
+    id("restart-btn").addEventListener("click", restart_puzzle);
     // Add event listener to "Pause" button
     id("pause-btn").addEventListener("click", pause);
     // Add event listener to "Resume" button
@@ -178,18 +182,19 @@ function resetGame() {
     }
     // Show number containers
     id("number-container").classList.remove("hidden");
-    // Enable "Tips", "Show solution", "Refresh puzzle", and "Pause" button
+    // Set button accessibility
     id("tips-btn").disabled = false;
     id("solve-btn").disabled = false;
+    id("solve-one-step-btn").disabled = false;
     id("refresh-btn").disabled = false;
+    id("restart-btn").disabled = false;
     id("pause-btn").disabled = false;
-    // Disable "Resume" button
     id("resume-btn").disabled = true;
 }
 
 function initializeGame(inputBoard) {
     generateBoard(inputBoard);
-    currentBoard = inputBoard;
+    currentBoard = board_string_to_grid(inputBoard);
     // Compute solution for the given input Sudoku board
     solution = board_grid_to_string(solveSudoku(board_string_to_grid(inputBoard)));
     // Show game components when everything is ready
@@ -208,6 +213,8 @@ function startGame() {
         id("spinner-container").classList.remove("hidden");
         inputBoard = readInput("Test_Cases/9x9_hard.txt");
         id("spinner-container").classList.add("hidden");
+    } else if (id("difficulty-veryhard").checked) {
+        inputBoard = generateSudoku("very-hard");
     }
     // Initialize game with the given inputBoard
     initializeGame(inputBoard);
@@ -223,18 +230,22 @@ function endGame() {
         if (lives == 0 || (parseInt(m, 10) == 0 && parseInt(s, 10) == 0)) {
             var x = id("snackbar-lose");
             var audio = new Audio('./audio/audio-lose.wav');
+            title_txt = "GAME OVER.😮";
         } else {
             var x = id("snackbar-win");
             var audio = new Audio('./audio/audio-win.wav');
+            title_txt = "Congrats!🎉";
         }
     } else if (timerType == "stopwatch") {
         cancelAnimationFrame(stopwatch);
         if (lives == 0) {
             var x = id("snackbar-lose");
             var audio = new Audio('./audio/audio-lose.wav');
+            title_txt = "GAME OVER.😮";
         } else {
             var x = id("snackbar-win");
             var audio = new Audio('./audio/audio-win.wav');
+            title_txt = "Congrats!🎉";
         }
     }
     audio.play();
@@ -242,8 +253,15 @@ function endGame() {
     setTimeout(function() {
         x.classList.remove("show");
     }, 2999);
+    swal({
+        title: title_txt,
+        text: "Try again? Press 'New game!' or 'Refresh/Restart puzzle' button.🚀",
+        icon: "info",
+    });
+    // Set button accessibility
     id("tips-btn").disabled = true;
     id("solve-btn").disabled = true;
+    id("solve-one-step-btn").disabled = true;
     id("pause-btn").disabled = true;
     id("resume-btn").disabled = true;
 }
@@ -255,8 +273,6 @@ function readInput(file) {
         if (rawFile.readyState === 4) {
             if (rawFile.status === 200 || rawFile.status == 0) {
                 var allText = rawFile.responseText.split("\n");
-                board_size = allText[0];
-                box_size = Math.sqrt(board_size);
                 inputBoard = '';
                 for (let i = 1; i < allText.length; i++) {
                     inputBoard += allText[i];
@@ -313,7 +329,8 @@ function updateMove() {
         selectedTile.textContent = selectedNum.textContent;
         if (isCorrect(selectedTile)) {
             // Update the curernt status of Sudoku board
-            currentBoard[selectedTile.id] = selectedTile.textContent;
+            currentBoard[Math.floor(selectedTile.id / board_size)][selectedTile.id % board_size] =
+                selectedNum.textContent;
             // Update selectedTile and selectedNum
             selectedTile.classList.remove("selected");
             selectedNum.classList.remove("selected");
@@ -359,8 +376,6 @@ function clearPrevious() {
     for (let i = 0; i < tiles.length; i++) {
         tiles[i].remove();
     }
-    if (countdown_timer) { clearInterval(countdown_timer); }
-    if (progress_bar) { clearInterval(progress_bar); }
     for (let i = 0; i < id("number-container").children.length; i++) {
         id("number-container").children[i].classList.remove("selected");
     }
@@ -378,20 +393,14 @@ function displayLives(lives) {
 
 function display_tips() {
     // Get and print candidates of each empty cell on the current board
-    candidates = get_candidates(currentBoard);
+    candidates = get_candidates(board_grid_to_string(currentBoard));
     console.log(board_grid_to_display_string(candidates));
     qs(".toast-body").textContent = board_grid_to_display_string(candidates);
     // Initialize bootstrap toast instance
     var myToast = new bootstrap.Toast(id("myToast"), {
-        autohide: false
+        delay: 3000
     });
     myToast.show();
-    // swal({
-    //     title: "Tips:",
-    //     text: board_grid_to_display_string(candidates),
-    //     icon: "info",
-    // });
-    // alert(board_grid_to_display_string(candidates));
 }
 
 function show_solution() {
@@ -400,21 +409,39 @@ function show_solution() {
         var tile = id("board").children[i];
         if (tile.textContent != solution[tile.id]) {
             tile.textContent = solution[tile.id];
+            // Update the curernt status of Sudoku board
+            currentBoard[Math.floor(tile.id / board_size)][tile.id % board_size] = solution[tile.id];
             tile.classList.add("green-text");
         }
     }
     // Display solution to the console
     console.log(board_string_to_display_string(solution));
     // Pause countdown timer or stopwatch
-    if (timerType == "countdown") {
-        pauseTimer();
-    } else if (timerType == "stopwatch") {
-        pauseTimeCounter();
-    }
-    // Disable "Tips", "Show solution" and "Resume" button
+    pause();
+    // Set button accessibility
     id("tips-btn").disabled = true;
     id("solve-btn").disabled = true;
+    id("solve-one-step-btn").disabled = true;
     id("resume-btn").disabled = true;
+    // Display message to the user
+    swal({
+        title: "Try again?😉",
+        text: "Press 'New game!' or 'Refresh/Restart puzzle' button.🚀",
+        icon: "info",
+    });
+}
+
+function solve_one_step() {
+    for (let i = 0; i < id("board").children.length; i++) {
+        var tile = id("board").children[i];
+        if (tile.textContent != solution[tile.id]) {
+            tile.textContent = solution[tile.id];
+            // Update the curernt status of Sudoku board
+            currentBoard[Math.floor(tile.id / board_size)][tile.id % board_size] = solution[tile.id];
+            tile.classList.add("green-text");
+            break;
+        }
+    }
 }
 
 function refresh_puzzle() {
@@ -427,25 +454,42 @@ function refresh_puzzle() {
         inputBoard = generateSudoku("medium");
     } else if (id("difficulty-hard").checked) {
         inputBoard = generateSudoku("hard");
+    } else if (id("difficulty-veryhard").checked) {
+        inputBoard = generateSudoku("very-hard");
     }
     // Initialize game with the given inputBoard
     initializeGame(inputBoard);
 }
 
+function restart_puzzle() {
+    resetGame();
+    initializeGame(inputBoard);
+}
+
 function pause() {
+    disableSelect = true;
     if (timerType == "countdown") {
         pauseTimer();
     } else if (timerType == "stopwatch") {
         pauseTimeCounter();
     }
+    // Set button accessibility
+    id("tips-btn").disabled = true;
+    id("solve-btn").disabled = true;
+    id("solve-one-step-btn").disabled = true;
 }
 
 function resume() {
+    disableSelect = false;
     if (timerType == "countdown") {
         resumeTimer();
     } else if (timerType == "stopwatch") {
         resumeTimeCounter();
     }
+    // Set button accessibility
+    id("tips-btn").disabled = false;
+    id("solve-btn").disabled = false;
+    id("solve-one-step-btn").disabled = false;
 }
 
 // Helper functions
@@ -464,4 +508,11 @@ function qsa(selectors) {
 function setIntervalImmediately(func, interval) {
     func();
     return setInterval(func, interval);
+}
+
+// In JavaScript, strings are immutable.
+// You cannot do an in-place replacement, but creating a new string and returns it.
+function setCharAt(str, index, chr) {
+    if (index > str.length - 1) return str;
+    return str.substring(0, index) + chr + str.substring(index + 1);
 }

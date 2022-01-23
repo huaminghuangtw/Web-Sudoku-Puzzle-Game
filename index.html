@@ -53,13 +53,24 @@
                 <td style="text-align: center">
                     <div class="btn-group" role="group">
                         <input type="radio" class="btn-check" id="difficulty-easy" name="diff" value="easy" autocomplete="off" checked>
-                        <label class="btn btn-outline-primary" for="difficulty-easy">Easy</label>
+                        <label class="btn btn-outline-primary" for="difficulty-easy">
+							<i class="fas fa-dice-one"></i> Easy
+						</label>
 
                         <input type="radio" class="btn-check" id="difficulty-medium" name="diff" value="medium" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="difficulty-medium">Medium</label>
+                        <label class="btn btn-outline-primary" for="difficulty-medium">
+							<i class="fas fa-dice-two"></i> Medium
+						</label>
 
                         <input type="radio" class="btn-check" id="difficulty-hard" name="diff" value="hard" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="difficulty-hard">Hard</label>
+                        <label class="btn btn-outline-primary" for="difficulty-hard">
+							<i class="fas fa-dice-three"></i> Hard
+						</label>
+
+                        <input type="radio" class="btn-check" id="difficulty-veryhard" name="diff" value="veryhard" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="difficulty-veryhard">
+							<i class="fas fa-dice-four"></i> Very Hard
+						</label>
                     </div>
                 </td>
                 <td style="text-align: center">
@@ -87,7 +98,7 @@
                 </td>
             </tr>
         </table>
-        <button type="button" id="start-btn" class="btn btn-info">New game!</button>
+        <button type="button" id="start-btn" class="mybutton">New game!</button>
     </header>
 
     <div align="center" id="spinner-container" class="hidden">
@@ -140,11 +151,11 @@
     </div>
 
     <div class="toast" id="myToast" style="position: absolute; top: 50%; right: 0;">
-        <div class="toast-header" style="font-size: 26px; background-color: #ffb6c1; color: black;">
-            <strong class="me-auto"><i class="fas fa-atom"></i> Tips:</strong>
+        <div class="toast-header" style="font-size: 26px; background-color: #dfd8cf; color: black;">
+            <strong class="me-auto"><i class="fas fa-atom"></i> Tips</strong>
             <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
         </div>
-        <div class="toast-body" style="font-size: 24px; background-color: #ffb6c1; color: black;"></div>
+        <div class="toast-body" style="font-size: 24px; background-color: #dfd8cf; color: black;"></div>
     </div>
 
     <p>
@@ -158,16 +169,25 @@
 					<i class="far fa-lightbulb"></i> Show solution
 				</button>
 
-                <button type="button" id="refresh-btn" class="btn btn-secondary btn-sm" disabled rel="tooltip" title="Refresh the Sudoku board with the same difficulty." data-placement="bottom">
-					<i class="fas fa-sync"></i> Refresh puzzle
+                <button type="button" id="solve-one-step-btn" class="btn btn-secondary btn-sm" disabled rel="tooltip" title="Solve one empty cell for the current Sudoku puzzle." data-placement="bottom">
+					<i class="fas fa-angle-double-right"></i> Solve one step
 				</button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="pause-btn" class="btn btn-outline-secondary btn-sm" disabled>
+                <button type="button" id="refresh-btn" class="btn btn-secondary btn-sm" disabled rel="tooltip" title="Refresh the Sudoku board with the same difficulty." data-placement="bottom">
+					<i class="fas fa-sync"></i> Refresh puzzle
+				</button>
+
+                <button type="button" id="restart-btn" class="btn btn-secondary btn-sm" disabled rel="tooltip" title="Restart the puzzle by clearing all cells you just tried to solve." data-placement="bottom">
+					<i class="fas fa-undo"></i> Restart puzzle
+				</button>
+            </div>
+            <div class="btn-group" role="group">
+                <button type="button" id="pause-btn" class="btn btn-secondary btn-sm" disabled>
 					<i class="fas fa-pause"></i> Pause
 				</button>
 
-                <button type="button" id="resume-btn" class="btn btn-outline-secondary btn-sm" disabled>
+                <button type="button" id="resume-btn" class="btn btn-secondary btn-sm" disabled>
 					<i class="fas fa-hourglass-half"></i> Resume
 				</button>
             </div>
