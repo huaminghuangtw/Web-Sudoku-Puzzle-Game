@@ -2,41 +2,6 @@
  * Based on: https://github.com/robatron/sudoku.js *
  * ----------------------------------------------- */
 
-function print_board(board) {
-    /* Print a Sudoku board to the console */
-
-    // Assure a valid board
-    var report = validate_board(board);
-    if (!report) { throw report; }
-
-    var V_PADDING = " "; // Insert after each square
-    var H_PADDING = '\n'; // Insert after each row
-    var V_BOX_PADDING = "  "; // Box vertical padding
-    var H_BOX_PADDING = '\n'; // Box horizontal padding
-
-    var display_string = "";
-
-    for (var i in board) {
-        var square = board[i];
-        // Add the square and vertical padding
-        display_string += square + V_PADDING;
-        // Vertical edge of a box, insert vertical box padding
-        if (i % 3 === 2) {
-            display_string += V_BOX_PADDING;
-        }
-        // End of a line, insert horizontal padding
-        if (i % 9 === 8) {
-            display_string += H_PADDING;
-        }
-        // Horizontal edge of a box, insert horizontal box padding
-        if (i % 27 === 26) {
-            display_string += H_BOX_PADDING;
-        }
-    }
-
-    console.log(display_string);
-}
-
 function board_string_to_grid(board_string) {
     /* Convert a board string to a two-dimensional array */
     var rows = [];
@@ -60,6 +25,41 @@ function board_grid_to_string(board_grid) {
         }
     }
     return board_string;
+}
+
+function board_grid_to_display_string(board_grid) {
+    const maxLength = board_grid.flat().reduce((a, c) => Math.max(c.length, a), 0);
+    const display_string = board_grid.map(arr => arr.map(s => s.padEnd(maxLength, ' ')).join(' ')).join('\n');
+    return display_string;
+}
+
+function board_string_to_display_string(board_string) {
+    var V_PADDING = " "; // Insert after each square
+    var H_PADDING = '\n'; // Insert after each row
+    var V_BOX_PADDING = "  "; // Box vertical padding
+    var H_BOX_PADDING = '\n'; // Box horizontal padding
+
+    var display_string = "";
+
+    for (var i in board_string) {
+        var square = board_string[i];
+        // Add the square and vertical padding
+        display_string += square + V_PADDING;
+        // Vertical edge of a box, insert vertical box padding
+        if (i % 3 === 2) {
+            display_string += V_BOX_PADDING;
+        }
+        // End of a line, insert horizontal padding
+        if (i % 9 === 8) {
+            display_string += H_PADDING;
+        }
+        // Horizontal edge of a box, insert horizontal box padding
+        if (i % 27 === 26) {
+            display_string += H_BOX_PADDING;
+        }
+    }
+
+    return display_string;
 }
 
 function validate_board(board) {

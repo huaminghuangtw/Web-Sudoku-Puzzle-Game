@@ -51,6 +51,7 @@ function isValid(board, row, column, value) {
     return false;
 }
 
+/* Backtracking solving algorithm */
 function solveSudoku(board) {
     let emptyCell = find_empty(board);
     let row = emptyCell[0];

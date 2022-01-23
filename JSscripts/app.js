@@ -1,5 +1,7 @@
 // Global variables
 var inputBoard;
+var currentBoard;
+var candidates;
 var solution;
 var board_size;
 var box_size;
@@ -8,6 +10,7 @@ var selectedNum;
 var selectedTile;
 var disableSelect;
 var timerType;
+
 
 // Run script once DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -55,6 +58,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
     }
+    // Add event listener to "Tips" button
+    id("tips-btn").addEventListener("click", display_tips);
     // Add event listener to "Show solution" button
     id("solve-btn").addEventListener("click", show_solution);
     // Add event listener to "Refresh puzzle" button
@@ -173,12 +178,22 @@ function resetGame() {
     }
     // Show number containers
     id("number-container").classList.remove("hidden");
-    // Enable "Show solution", "Refresh puzzle", and "Pause" button
+    // Enable "Tips", "Show solution", "Refresh puzzle", and "Pause" button
+    id("tips-btn").disabled = false;
     id("solve-btn").disabled = false;
     id("refresh-btn").disabled = false;
     id("pause-btn").disabled = false;
     // Disable "Resume" button
     id("resume-btn").disabled = true;
+}
+
+function initializeGame(inputBoard) {
+    generateBoard(inputBoard);
+    currentBoard = inputBoard;
+    // Compute solution for the given input Sudoku board
+    solution = board_grid_to_string(solveSudoku(board_string_to_grid(inputBoard)));
+    // Show game components when everything is ready
+    id("game-container").style.visibility = "visible";
 }
 
 function startGame() {
@@ -194,11 +209,8 @@ function startGame() {
         inputBoard = readInput("Test_Cases/9x9_hard.txt");
         id("spinner-container").classList.add("hidden");
     }
-    generateBoard(inputBoard);
-    // Compute solution for the gieven input Sudoku board
-    solution = board_grid_to_string(solveSudoku(board_string_to_grid(inputBoard)));
-    // Show game components when everything is ready
-    id("game-container").style.visibility = "visible";
+    // Initialize game with the given inputBoard
+    initializeGame(inputBoard);
 }
 
 function endGame() {
@@ -230,8 +242,8 @@ function endGame() {
     setTimeout(function() {
         x.classList.remove("show");
     }, 2999);
+    id("tips-btn").disabled = true;
     id("solve-btn").disabled = true;
-    id("refresh-btn").disabled = true;
     id("pause-btn").disabled = true;
     id("resume-btn").disabled = true;
 }
@@ -300,6 +312,9 @@ function updateMove() {
     if (selectedTile && selectedNum) {
         selectedTile.textContent = selectedNum.textContent;
         if (isCorrect(selectedTile)) {
+            // Update the curernt status of Sudoku board
+            currentBoard[selectedTile.id] = selectedTile.textContent;
+            // Update selectedTile and selectedNum
             selectedTile.classList.remove("selected");
             selectedNum.classList.remove("selected");
             selectedTile = null;
@@ -361,6 +376,24 @@ function displayLives(lives) {
     }
 }
 
+function display_tips() {
+    // Get and print candidates of each empty cell on the current board
+    candidates = get_candidates(currentBoard);
+    console.log(board_grid_to_display_string(candidates));
+    qs(".toast-body").textContent = board_grid_to_display_string(candidates);
+    // Initialize bootstrap toast instance
+    var myToast = new bootstrap.Toast(id("myToast"), {
+        autohide: false
+    });
+    myToast.show();
+    // swal({
+    //     title: "Tips:",
+    //     text: board_grid_to_display_string(candidates),
+    //     icon: "info",
+    // });
+    // alert(board_grid_to_display_string(candidates));
+}
+
 function show_solution() {
     // Display solution to the current Sudoku puzzle, highlighting the answers with green color
     for (let i = 0; i < id("board").children.length; i++) {
@@ -371,14 +404,15 @@ function show_solution() {
         }
     }
     // Display solution to the console
-    print_board(solution);
+    console.log(board_string_to_display_string(solution));
     // Pause countdown timer or stopwatch
     if (timerType == "countdown") {
         pauseTimer();
     } else if (timerType == "stopwatch") {
         pauseTimeCounter();
     }
-    // Disable "Show solution" and "Resume" button
+    // Disable "Tips", "Show solution" and "Resume" button
+    id("tips-btn").disabled = true;
     id("solve-btn").disabled = true;
     id("resume-btn").disabled = true;
 }
@@ -394,11 +428,8 @@ function refresh_puzzle() {
     } else if (id("difficulty-hard").checked) {
         inputBoard = generateSudoku("hard");
     }
-    generateBoard(inputBoard);
-    // Compute solution for the gieven input Sudoku board
-    solution = board_grid_to_string(solveSudoku(board_string_to_grid(inputBoard)));
-    // Show game components when everything is ready
-    id("game-container").style.visibility = "visible";
+    // Initialize game with the given inputBoard
+    initializeGame(inputBoard);
 }
 
 function pause() {
