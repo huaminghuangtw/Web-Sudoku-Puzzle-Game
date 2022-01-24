@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
             qs(":root").style.setProperty('--digitBackgroundColor', '#505050');
             id("spinner-element-1").style.color = "#ff9419";
             id("spinner-element-2").style.color = "#ff9419";
+            qs(".header").classList.remove("light");
+            qs(".header").classList.add("dark");
         } else {
             // light mode
             qs(".box").setAttribute('style', 'background-color:black; color:white;')
@@ -38,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.classList.add("light");
             qs(":root").style.setProperty('--digitColor', 'black');
             qs(":root").style.setProperty('--digitBackgroundColor', '#EEEEEE');
+            qs(".header").classList.remove("dark");
+            qs(".header").classList.add("light");
         }
     });
     // Add event listener to each of number in number container
@@ -230,34 +234,34 @@ function endGame() {
         if (lives == 0 || (parseInt(m, 10) == 0 && parseInt(s, 10) == 0)) {
             var x = id("snackbar-lose");
             var audio = new Audio('./audio/audio-lose.wav');
-            title_txt = "GAME OVER.😮";
         } else {
             var x = id("snackbar-win");
             var audio = new Audio('./audio/audio-win.wav');
-            title_txt = "Congrats!🎉";
+
         }
+        x.classList.add("show");
+        setTimeout(function() {
+            x.classList.remove("show");
+        }, 2999);
     } else if (timerType == "stopwatch") {
         cancelAnimationFrame(stopwatch);
         if (lives == 0) {
-            var x = id("snackbar-lose");
             var audio = new Audio('./audio/audio-lose.wav');
-            title_txt = "GAME OVER.😮";
+            swal({
+                title: "GAME OVER.😮",
+                text: "Try again? Press 'New game!' or 'Refresh/Restart puzzle' button.🚀",
+                icon: "info",
+            });
         } else {
-            var x = id("snackbar-win");
             var audio = new Audio('./audio/audio-win.wav');
-            title_txt = "Congrats!🎉";
+            swal({
+                title: "Congrats!🎉",
+                text: "Try again? Press 'New game!' or 'Refresh/Restart puzzle' button.🚀",
+                icon: "info",
+            });
         }
     }
     audio.play();
-    x.classList.add("show");
-    setTimeout(function() {
-        x.classList.remove("show");
-    }, 2999);
-    swal({
-        title: title_txt,
-        text: "Try again? Press 'New game!' or 'Refresh/Restart puzzle' button.🚀",
-        icon: "info",
-    });
     // Set button accessibility
     id("tips-btn").disabled = true;
     id("solve-btn").disabled = true;
