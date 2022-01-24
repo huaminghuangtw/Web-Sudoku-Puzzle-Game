@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
             qs(":root").style.setProperty('--digitBackgroundColor', '#505050');
             id("spinner-element-1").style.color = "#ff9419";
             id("spinner-element-2").style.color = "#ff9419";
+            qs(".header").classList.remove("light");
+            qs(".header").classList.add("dark");
         } else {
             // light mode
             qs(".box").setAttribute('style', 'background-color:black; color:white;')
@@ -38,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.classList.add("light");
             qs(":root").style.setProperty('--digitColor', 'black');
             qs(":root").style.setProperty('--digitBackgroundColor', '#EEEEEE');
+            qs(".header").classList.remove("dark");
+            qs(".header").classList.add("light");
         }
     });
     // Add event listener to each of number in number container

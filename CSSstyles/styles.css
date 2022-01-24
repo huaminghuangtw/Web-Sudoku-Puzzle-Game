@@ -1,5 +1,9 @@
 /* MAIN PAGE OF SUDOKU PUZZLE GAME */
 
+body {
+    background-color: #f0ffff;
+}
+
 .hidden {
     display: none;
 }
@@ -139,4 +143,80 @@ footer {
 
 .mybutton:hover:before {
     width: 100%;
+}
+
+.header {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.header.light {
+    background: linear-gradient(60deg, rgba(84, 58, 183, 1) 0%, rgba(0, 172, 193, 1) 100%);
+}
+
+.header.dark {
+    background: linear-gradient(60deg, #2f4f4f 0%, #bebebe 100%);
+}
+
+.inner-header {
+    height: 20%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.flex {
+    /* Flexbox for containers */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.waves {
+    position: relative;
+    width: 100%;
+    height: 5%;
+    margin-bottom: -7px;
+    /* Fix for safari gap */
+    min-height: 50px;
+    max-height: 100px;
+}
+
+
+/* Animation */
+
+.parallax>use {
+    animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+}
+
+.parallax>use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+}
+
+.parallax>use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+}
+
+.parallax>use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+}
+
+.parallax>use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+}
+
+@keyframes move-forever {
+    0% {
+        transform: translate3d(-90px, 0, 0);
+    }
+    100% {
+        transform: translate3d(85px, 0, 0);
+    }
 }
