@@ -63,7 +63,7 @@ Thanks!:heart: and Cheers!:beers:
 ---
 
 ### Contact
-If you have any question or suggestion, feel free to contact me at huaming.huang.tw@gmail.com. Contributions are also welcomed. Please open a [pull-request](https://github.com/hmhuang0501/Web-Sudoku-Puzzle-Game/compare) or an [issue](https://github.com/hmhuang0501/Web-Sudoku-Puzzle-Game/issues/new) in this repository.
+If you have any question or suggestion, feel free to contact me at huaming.huang.tw@gmail.com. Contributions are also welcomed. Please open a [pull-request](https://github.com/huaminghuangtw/Web-Sudoku-Puzzle-Game/compare) or an [issue](https://github.com/huaminghuangtw/Web-Sudoku-Puzzle-Game/issues/new) in this repository.
 
 ---
 
